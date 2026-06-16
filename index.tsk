@@ -1,0 +1,347 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import heroImg from "../assets/hero-nightclub.jpg";
+import diningImg from "../assets/dining.jpg";
+import nightlifeImg from "../assets/nightlife.jpg";
+import gamehouseImg from "../assets/gamehouse.jpg";
+import cocktailImg from "../assets/cocktail.jpg";
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Your App" },
+      { name: "description", content: "Replace this with a one-sentence description of your app." },
+      { property: "og:title", content: "Your App" },
+      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Driveway Lifestyle — Premium Nightlife & Fine Dining in Benin City" },
+      {
+        name: "description",
+        content:
+          "Benin City's most exclusive destination. Driveway Nightlife, Domo Dine fine dining, Lifestyle Gamehouse VR & VIP experiences. Open 24 hours.",
+      },
+      { property: "og:title", content: "Driveway Lifestyle — Benin City" },
+      {
+        property: "og:description",
+        content: "Premium nightlife, fine dining, VR gamehouse & VIP experiences.",
+      },
+      { property: "og:image", content: heroImg },
+    ],
+  }),
+  component: Index,
+});
+// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const PHONE = "+2349130944280";
+const ADDRESS = "4 1st Ugbor Road, Oka, Benin City 300102, Edo";
+function Index() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className="flex min-h-screen items-center justify-center"
+      style={{ backgroundColor: "#fcfbf8" }}
+    >
+      <img
+        data-lovable-blank-page-placeholder="REMOVE_THIS"
+        src="https://cdn.gpteng.co/blank-app-v1.svg"
+        alt="Your app will live here!"
+      />
+    <div className="dw min-h-screen">
+      <div className="border-b border-[rgba(201,164,76,.2)] bg-[#0a0907] py-2 overflow-hidden">
+        <div className="dw-marquee text-[11px] tracking-[0.3em] uppercase text-[#c9a44c]">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <div key={i} className="flex gap-16">
+              <span>★ Open 24 Hours</span>
+              <span>Exclusive Nightlife</span>
+              <span>Reservations: 0913 094 4280</span>
+              <span>Fine Dining · Domo Dine</span>
+              <span>VR Gamehouse</span>
+              <span>★ Benin City</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <header className="fixed top-8 left-0 right-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          <a href="#top" className="serif text-2xl tracking-wider">
+            DRIVEWAY<span className="gold">.</span>
+          </a>
+          <nav className="hidden md:flex gap-10 text-[11px] uppercase tracking-[0.3em]">
+            <a href="#experiences" className="hover:text-[#c9a44c] transition">Experiences</a>
+            <a href="#dining" className="hover:text-[#c9a44c] transition">Dining</a>
+            <a href="#nightlife" className="hover:text-[#c9a44c] transition">Nightlife</a>
+            <a href="#reviews" className="hover:text-[#c9a44c] transition">Reviews</a>
+            <a href="#visit" className="hover:text-[#c9a44c] transition">Visit</a>
+          </nav>
+          <button onClick={() => setOpen(true)} className="btn-gold btn-solid hidden sm:inline-flex">
+            Reserve
+          </button>
+          <button
+            onClick={() => setOpen(true)}
+            className="sm:hidden text-[#c9a44c] text-[10px] uppercase tracking-[0.25em] border border-[#c9a44c] px-3 py-2"
+          >
+            Reserve
+          </button>
+        </div>
+      </header>
+      <section id="top" className="dw-hero relative h-screen min-h-[700px] overflow-hidden">
+        <img
+          src={heroImg}
+          alt="Driveway Lifestyle interior — golden chandelier over marble bar"
+          className="absolute inset-0 w-full h-full object-cover opacity-70"
+          width={1920}
+          height={1080}
+        />
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+          <div className="dw-reveal eyebrow mb-6">Benin City · Est. Exclusive</div>
+          <h1 className="dw-reveal-2 text-5xl sm:text-7xl md:text-9xl leading-[0.95] mb-6 max-w-5xl">
+            Where the night<br />
+            <span className="gold italic">wears gold.</span>
+          </h1>
+          <p className="dw-reveal-3 max-w-xl text-base opacity-70 mb-10">
+            Premium nightlife, fine dining and private experiences — curated for those who arrive
+            late and leave unforgettable.
+          </p>
+          <div className="dw-reveal-3 flex flex-col sm:flex-row gap-4">
+            <button onClick={() => setOpen(true)} className="btn-gold btn-solid">
+              Reserve a Table
+            </button>
+            <a href={`tel:${PHONE}`} className="btn-gold">Call Concierge</a>
+          </div>
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.35em] uppercase opacity-40">
+            Scroll ↓
+          </div>
+        </div>
+      </section>
+      <section className="py-32 px-6 max-w-5xl mx-auto text-center">
+        <div className="eyebrow mb-6">The House</div>
+        <h2 className="text-4xl md:text-6xl leading-tight mb-8">
+          A single address.<br />
+          <span className="gold italic">Four worlds within.</span>
+        </h2>
+        <div className="hairline w-32 mx-auto my-10" />
+        <p className="text-lg opacity-70 leading-relaxed max-w-2xl mx-auto">
+          Tucked inside Squarehead Wine Gallery on Ugbor Road, Driveway Lifestyle is Benin City's
+          most exclusive destination — open 24 hours, every day. From candlelit dinners to neon-lit
+          dance floors, every hour belongs to you.
+        </p>
+      </section>
+      <section id="experiences" className="py-24 px-6" style={{ background: "#15120d" }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-end justify-between mb-16 flex-wrap gap-6">
+            <div>
+              <div className="eyebrow mb-4">The Experiences</div>
+              <h2 className="text-4xl md:text-6xl">Choose your evening.</h2>
+            </div>
+            <p className="max-w-sm opacity-60 text-sm">
+              Four distinct venues under one roof. One reservation. Infinite ways to spend the night.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <ExperienceCard tag="Nightlife" title="Driveway Nightlife"
+              desc="The most exclusive nightlife in Benin City. International DJs, bottle service, private booths."
+              img={nightlifeImg} meta="9PM – 5AM" />
+            <ExperienceCard tag="Fine Dining" title="Domo Dine"
+              desc="Chef-led tasting menus and à la carte classics in an intimate gilded room."
+              img={diningImg} meta="Daily 9AM – 11PM" />
+            <ExperienceCard tag="Cocktails" title="The Gold Bar"
+              desc="Signature cocktails, rare spirits, deep wine list — poured by award-trained mixologists."
+              img={cocktailImg} meta="24 Hours" />
+            <ExperienceCard tag="Gamehouse" title="Lifestyle Gamehouse"
+              desc="Immersive VR, billiards, private gaming suites — where competition meets cocktails."
+              img={gamehouseImg} meta="Daily 12PM – Late" />
+          </div>
+        </div>
+      </section>
+      <section id="dining" className="py-32 px-6">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div className="dw-img-frame aspect-[4/5] order-2 md:order-1">
+            <img src={diningImg} alt="Plated tasting dish at Domo Dine" loading="lazy"
+              className="w-full h-full object-cover" />
+          </div>
+          <div className="order-1 md:order-2">
+            <div className="eyebrow mb-4">Domo Dine</div>
+            <h2 className="text-4xl md:text-6xl mb-6">
+              Plates worth<br /><span className="gold italic">whispering about.</span>
+            </h2>
+            <div className="hairline w-24 my-8" />
+            <p className="opacity-70 leading-relaxed mb-8">
+              "The best food in Benin — definitely worth the price. Great portion sizes, amazing
+              appetizers, all-around great experience."
+              <span className="block mt-3 text-xs uppercase tracking-[0.25em] gold">— Abraham Lawrence, Guest</span>
+            </p>
+            <ul className="space-y-3 text-sm opacity-80 mb-10">
+              {[
+                "Seasonal tasting menu by the Executive Chef",
+                "Curated wine pairings & rare spirits",
+                "Private dining rooms for 2–24 guests",
+                "₦20,000 – ₦35,000 per person",
+              ].map((t) => (
+                <li key={t} className="flex gap-3"><span className="gold">◆</span>{t}</li>
+              ))}
+            </ul>
+            <button onClick={() => setOpen(true)} className="btn-gold">Reserve at Domo Dine</button>
+          </div>
+        </div>
+      </section>
+      <section id="nightlife" className="relative py-32 px-6 bg-cover bg-center"
+        style={{ backgroundImage: `linear-gradient(rgba(10,9,7,.85), rgba(10,9,7,.95)), url(${nightlifeImg})` }}>
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="eyebrow mb-6">After Dark</div>
+          <h2 className="text-5xl md:text-7xl mb-8">
+            The most <span className="gold italic">exclusive</span><br />nightlife in Benin City.
+          </h2>
+          <div className="hairline w-32 mx-auto my-10" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+            {[["VIP", "Private Tables"], ["LIVE", "Music & DJs"], ["24/7", "Open Always"], ["★★★", "Karaoke Nights"]].map(([k, v]) => (
+              <div key={v}>
+                <div className="serif text-4xl gold mb-2">{k}</div>
+                <div className="text-xs uppercase tracking-[0.3em] opacity-60">{v}</div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12">
+            <a href={`tel:${PHONE}`} className="btn-gold btn-solid">Book a VIP Table</a>
+          </div>
+        </div>
+      </section>
+      <section id="reviews" className="py-32 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <div className="eyebrow mb-4">Whispered Around Town</div>
+            <h2 className="text-4xl md:text-6xl">Guests, in their own words.</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {REVIEWS.map((r) => (
+              <div key={r.name} className="dw-card p-8">
+                <div className="gold text-2xl mb-4">★★★★★</div>
+                <p className="opacity-80 leading-relaxed italic serif text-lg mb-6">"{r.text}"</p>
+                <div className="text-xs uppercase tracking-[0.25em] gold">{r.name}</div>
+                <div className="text-[10px] uppercase tracking-[0.25em] opacity-40 mt-1">{r.meta}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="visit" className="py-32 px-6" style={{ background: "#15120d" }}>
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+          <div>
+            <div className="eyebrow mb-4">Visit</div>
+            <h2 className="text-4xl md:text-6xl mb-8">
+              Find us<br /><span className="gold italic">after dark.</span>
+            </h2>
+            <div className="hairline w-24 my-8" />
+            <div className="space-y-1 opacity-90">
+              <InfoRow label="Address" value={ADDRESS} />
+              <InfoRow label="Hours" value="Open 24 Hours · Every Day" />
+              <InfoRow label="Reservations" value={PHONE} href={`tel:${PHONE}`} />
+              <InfoRow label="Per Person" value="₦20,000 – ₦35,000" />
+              <InfoRow label="Located In" value="Squarehead Wine Gallery" />
+            </div>
+            <div className="flex gap-3 mt-10 flex-wrap">
+              <a href={`tel:${PHONE}`} className="btn-gold btn-solid">Call</a>
+              <a href={`https://maps.google.com/?q=${encodeURIComponent(ADDRESS)}`} target="_blank" rel="noreferrer" className="btn-gold">Directions</a>
+              <a href="https://instagram.com/driveway_lifestyle" target="_blank" rel="noreferrer" className="btn-gold">Instagram</a>
+            </div>
+          </div>
+          <div className="dw-card p-10">
+            <div className="eyebrow mb-4">Amenities</div>
+            <h3 className="serif text-3xl mb-8">Every detail considered.</h3>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-4 text-sm opacity-80">
+              {["Free Valet Parking","Free Wi-Fi","Wheelchair Accessible","Card & NFC Payments","Private Booths","Bottle Service","Hookah Lounge","Trendy Atmosphere"].map((a) => (
+                <div key={a} className="flex gap-3"><span className="gold">◆</span>{a}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer className="border-t border-[rgba(201,164,76,.15)] py-12 px-6 text-center">
+        <div className="serif text-3xl mb-4">DRIVEWAY<span className="gold">.</span></div>
+        <p className="text-xs uppercase tracking-[0.35em] opacity-40 mb-6">
+          Lifestyle · Nightlife · Dining · Gamehouse
+        </p>
+        <p className="text-xs opacity-30">
+          © {new Date().getFullYear()} Driveway Lifestyle, Benin City. All rights reserved.
+        </p>
+      </footer>
+      {open && <ReserveModal onClose={() => setOpen(false)} />}
+    </div>
+  );
+}
+function ExperienceCard({ tag, title, desc, img, meta }: { tag: string; title: string; desc: string; img: string; meta: string }) {
+  return (
+    <div className="dw-card group overflow-hidden">
+      <div className="dw-img-frame aspect-[16/10]">
+        <img src={img} alt={title} loading="lazy" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" />
+      </div>
+      <div className="p-8">
+        <div className="flex justify-between items-center mb-4">
+          <span className="eyebrow">{tag}</span>
+          <span className="text-[10px] uppercase tracking-[0.25em] opacity-40">{meta}</span>
+        </div>
+        <h3 className="serif text-3xl mb-3">{title}</h3>
+        <p className="text-sm opacity-70 leading-relaxed">{desc}</p>
+      </div>
+    </div>
+  );
+}
+function InfoRow({ label, value, href }: { label: string; value: string; href?: string }) {
+  const content = (
+    <div className="grid grid-cols-[110px_1fr] gap-6 py-4 border-b border-[rgba(201,164,76,.12)]">
+      <div className="text-[10px] uppercase tracking-[0.3em] gold pt-1">{label}</div>
+      <div className="serif text-xl">{value}</div>
+    </div>
+  );
+  return href ? <a href={href} className="block hover:opacity-80 transition">{content}</a> : content;
+}
+const REVIEWS = [
+  { name: "Sandra Oviasogie", meta: "Verified Guest", text: "The very best in Benin City. I really enjoyed myself here." },
+  { name: "Manny Mee", meta: "Local Guide", text: "Perfect atmosphere — loved every moment of it." },
+  { name: "Chinaza Aniesedo", meta: "Verified Guest", text: "The food was very lovely and tasty. I shall be coming again soon." },
+  { name: "Jennifer Boniface", meta: "Verified Guest", text: "Experience a real and cool lifestyle. Unmatched in the city." },
+  { name: "Donald Ola", meta: "Verified Guest", text: "Amazing service from beginning to end. Will be back." },
+  { name: "Ehisuf", meta: "Local Guide · 89 photos", text: "A stunning lounge marked by the weekend's revelry — remnants of unforgettable moments." },
+];
+function ReserveModal({ onClose }: { onClose: () => void }) {
+  const [sent, setSent] = useState(false);
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
+      <div className="dw border border-[rgba(201,164,76,.3)] max-w-lg w-full p-10 relative"
+        style={{ background: "#15120d" }} onClick={(e) => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute top-4 right-5 gold text-2xl">×</button>
+        {sent ? (
+          <div className="text-center py-8">
+            <div className="gold serif text-5xl mb-4">✓</div>
+            <h3 className="serif text-3xl mb-3">Reservation Received</h3>
+            <p className="opacity-70 text-sm mb-6">
+              Our concierge will confirm your table shortly. For immediate booking, please call.
+            </p>
+            <a href={`tel:${PHONE}`} className="btn-gold btn-solid">Call Concierge</a>
+          </div>
+        ) : (
+          <>
+            <div className="eyebrow mb-3">Reserve</div>
+            <h3 className="serif text-3xl mb-6">Your table awaits.</h3>
+            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="space-y-4">
+              <Field label="Name" name="name" />
+              <Field label="Phone" name="phone" type="tel" />
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="Date" name="date" type="date" />
+                <Field label="Guests" name="guests" type="number" defaultValue="2" />
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.3em] gold mb-2">Venue</label>
+                <select className="w-full bg-transparent border border-[rgba(201,164,76,.3)] px-4 py-3 focus:border-[#c9a44c] outline-none" style={{ color: "#f3ead7" }}>
+                  <option style={{ background: "#0a0907" }}>Driveway Nightlife</option>
+                  <option style={{ background: "#0a0907" }}>Domo Dine</option>
+                  <option style={{ background: "#0a0907" }}>The Gold Bar</option>
+                  <option style={{ background: "#0a0907" }}>Lifestyle Gamehouse</option>
+                </select>
+              </div>
+              <button type="submit" className="btn-gold btn-solid w-full justify-center mt-2">
+                Request Reservation
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
