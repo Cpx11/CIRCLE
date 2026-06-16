@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driveway Lifestyle — Exclusive Nightlife & Fine Dining, Benin City</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --obsidian: #09090E;
+    --deep: #111118;
+    --panel: #16161F;
+    --gold: #C9A84C;
+    --gold-light: #E8C06A;
+    --amber: #E8A020;
+    --burgundy: #5C1A2E;
+    --platinum: #C8C8CC;
+    --smoke: #7A7A85;
+    --white: #F2F0EC;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--obsidian);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: linear-gradient(to bottom, rgba(9,9,14,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(0px);
+    transition: backdrop-filter 0.4s, background 0.4s;
+  }
+  nav.scrolled {
+    backdrop-filter: blur(18px);
+    background: rgba(9,9,14,0.92);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex; gap: 2.2rem; list-style: none;
+  }
+  .nav-links a {
+    color: var(--platinum);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-reserve {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.55rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+  .nav-reserve:hover { background: var(--gold); color: var(--obsidian); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 70% at 50% 60%, #2A0E1E 0%, #0D0810 50%, var(--obsidian) 100%);
+  }
+  /* Scanline texture */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.07) 2px,
+      rgba(0,0,0,0.07) 4px
+    );
+    pointer-events: none;
+  }
+  canvas#particles {
+    position: absolute; inset: 0; z-index: 1;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulseGlow 4s ease-in-out infinite;
+    z-index: 1;
+  }
+  @keyframes pulseGlow {
+    0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%,-50%) scale(1.15); opacity: 0.7; }
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.8rem;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    text-shadow: 0 0 60px rgba(201,168,76,0.25);
+    margin-bottom: 0.3rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--platinum);
+    margin-top: 1.4rem;
+    letter-spacing: 0.04em;
+  }
+  .hero-tags {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 2.4rem;
+  }
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    padding: 0.35rem 0.9rem;
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+  .hero-cta {
+    margin-top: 3.5rem;
+    display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--obsidian);
+    border: none;
+    padding: 0.9rem 2.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.9rem 2.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--smoke);
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollAnim 2s ease-in-out infinite;
+  }
+  @keyframes scrollAnim {
+    0%,100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 3rem; }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--white);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .gold-rule {
+    width: 48px; height: 1px;
+    background: var(--gold);
+    margin: 1.8rem 0;
+    opacity: 0.7;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--deep);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: var(--panel);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 2.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--gold);
+  }
+  .about-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .about-card p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--platinum);
+  }
+  .about-card + .about-card { margin-top: 1.2rem; }
+  .about-badge {
+    position: absolute; top: -1.5rem; right: 1.5rem;
+    background: var(--burgundy);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.8rem 1.2rem;
+    text-align: center;
+  }
+  .about-badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .about-badge-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--platinum);
+  }
+  .about-text p {
+    font-size: 0.92rem;
+    line-height: 1.9;
+    color: var(--platinum);
+    margin-bottom: 1.2rem;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .stat {
+    border-left: 1px solid rgba(201,168,76,0.3);
+    padding-left: 1.2rem;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience {
+    background: var(--obsidian);
+    text-align: center;
+  }
+  #experience .section-title { margin: 0 auto 0.5rem; }
+  #experience .section-label { justify-content: center; display: flex; }
+  #experience .gold-rule { margin: 1.8rem auto; }
+  #experience > p {
+    max-width: 560px; margin: 0 auto 4rem;
+    font-size: 0.92rem; line-height: 1.8; color: var(--smoke);
+  }
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.1);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .exp-card {
+    background: var(--deep);
+    padding: 3rem 2rem;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+  .exp-card:hover { background: var(--panel); }
+  .exp-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .exp-card:hover::after { transform: scaleX(1); }
+  .exp-icon {
+    width: 42px; height: 42px;
+    margin-bottom: 1.8rem;
+    opacity: 0.8;
+  }
+  .exp-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .exp-card p {
+    font-size: 0.84rem;
+    line-height: 1.75;
+    color: var(--smoke);
+  }
+  .exp-tag {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid rgba(201,168,76,0.4);
+    padding-bottom: 2px;
+  }
+
+  /* ── MENU ── */
+  #menu {
+    background: var(--deep);
+  }
+  .menu-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .menu-nav { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 3rem; }
+  .menu-tab {
+    background: none; border: none;
+    text-align: left;
+    padding: 0.9rem 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--smoke);
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all 0.3s;
+  }
+  .menu-tab.active, .menu-tab:hover {
+    color: var(--gold);
+    border-left-color: var(--gold);
+    background: rgba(201,168,76,0.04);
+  }
+  .menu-items { display: none; }
+  .menu-items.active { display: block; }
+  .menu-item {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    gap: 1rem;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .menu-item-desc {
+    font-size: 0.8rem;
+    color: var(--smoke);
+    line-height: 1.6;
+  }
+  .menu-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--gold);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── AMBIENCE ── */
+  #ambience {
+    background: var(--obsidian);
+    overflow: hidden;
+  }
+  .ambience-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+  .ambience-header p {
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--smoke);
+  }
+  .ambience-gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 260px 260px;
+    gap: 4px;
+  }
+  .gallery-cell {
+    overflow: hidden;
+    position: relative;
+  }
+  .gallery-cell:first-child { grid-row: 1 / 3; }
+  .gallery-inner {
+    width: 100%; height: 100%;
+    transition: transform 0.6s ease;
+  }
+  .gallery-cell:hover .gallery-inner { transform: scale(1.04); }
+  .gallery-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--smoke);
+    letter-spacing: 0.06em;
+    position: relative;
+    overflow: hidden;
+  }
+  .g1 { background: linear-gradient(135deg, #1A0A14 0%, #2D1020 40%, #180814 100%); }
+  .g2 { background: linear-gradient(135deg, #0E0A1A 0%, #1A1230 100%); }
+  .g3 { background: linear-gradient(135deg, #1A1208 0%, #2D2010 100%); }
+  .g4 { background: linear-gradient(135deg, #0A1018 0%, #141E2A 100%); }
+  .g5 { background: linear-gradient(135deg, #1A0E10 0%, #2A1418 100%); }
+  .gallery-label {
+    position: absolute; bottom: 1.2rem; left: 1.2rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.7);
+  }
+  /* Decorative SVG patterns inside gallery cells */
+  .g-svg { position: absolute; opacity: 0.35; }
+
+  /* ── REVIEWS ── */
+  #reviews {
+    background: var(--deep);
+    text-align: center;
+  }
+  #reviews .gold-rule { margin: 1.8rem auto; }
+  .reviews-track-wrap {
+    overflow: hidden;
+    margin-top: 3.5rem;
+    position: relative;
+  }
+  .reviews-track {
+    display: flex;
+    gap: 1.5rem;
+    animation: scrollReviews 30s linear infinite;
+    width: max-content;
+  }
+  .reviews-track:hover { animation-play-state: paused; }
+  @keyframes scrollReviews {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .review-card {
+    background: var(--panel);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 2rem 2.2rem;
+    width: 320px;
+    flex-shrink: 0;
+    text-align: left;
+    position: relative;
+  }
+  .review-stars {
+    display: flex; gap: 3px; margin-bottom: 1rem;
+  }
+  .star {
+    width: 12px; height: 12px;
+    fill: var(--gold);
+  }
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--platinum);
+    margin-bottom: 1.4rem;
+  }
+  .review-author {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+  .review-price {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    font-size: 0.68rem;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* ── INFO ── */
+  #info {
+    background: var(--obsidian);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+  }
+  .info-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 1.8rem;
+  }
+  .info-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .info-list li {
+    display: flex; align-items: flex-start; gap: 0.9rem;
+    font-size: 0.87rem;
+    color: var(--platinum);
+    line-height: 1.6;
+  }
+  .info-icon {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .info-offerings {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  .offering-tag {
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.4rem 0.85rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+
+  /* ── RESERVATION ── */
+  #reservation {
+    background: linear-gradient(135deg, #140820 0%, #0A0610 40%, #1C0810 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #reservation::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,168,76,0.08), transparent);
+  }
+  .res-content { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+  #reservation .section-label { justify-content: center; display: flex; }
+  #reservation .gold-rule { margin: 1.8rem auto; }
+  #reservation > .res-content > p {
+    font-size: 0.9rem; line-height: 1.8; color: var(--smoke); margin-bottom: 3rem;
+  }
+  .res-form {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .res-form .full { grid-column: 1 / -1; }
+  .res-input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--white);
+    padding: 0.9rem 1.1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .res-input:focus { border-color: var(--gold); }
+  .res-input::placeholder { color: var(--smoke); }
+  select.res-input option { background: var(--deep); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--obsidian);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 3.5rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .footer-brand .nav-logo { font-size: 1.3rem; display: block; margin-bottom: 0.8rem; }
+  .footer-brand p {
+    font-size: 0.8rem; color: var(--smoke); line-height: 1.7;
+    max-width: 220px;
+  }
+  .footer-col h4 {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul a {
+    font-size: 0.82rem;
+    color: var(--smoke);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-col ul a:hover { color: var(--gold); }
+  .footer-bottom {
+    background: var(--obsidian);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding: 1.2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.72rem;
+    color: var(--smoke);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.85);
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid rgba(201,168,76,0.2);
+    max-width: 500px; width: 90%;
+    padding: 2.5rem;
+    position: relative;
+    animation: modalIn 0.35s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: none; border: none;
+    color: var(--smoke); font-size: 1.5rem;
+    cursor: pointer; line-height: 1;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--gold); }
+  .modal h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .modal-sub {
+    font-size: 0.8rem; color: var(--smoke); margin-bottom: 2rem;
+  }
+  .modal-form { display: flex; flex-direction: column; gap: 0.9rem; }
+  .modal-success {
+    text-align: center; padding: 1.5rem 0;
+    display: none;
+  }
+  .modal-success svg { width: 48px; height: 48px; margin-bottom: 1rem; }
+  .modal-success p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); }
+  .modal-success small { font-size: 0.8rem; color: var(--smoke); display: block; margin-top: 0.5rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4.5rem 1.5rem; }
+    #about, #info { grid-template-columns: 1fr; gap: 2.5rem; }
+    .menu-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .menu-nav { flex-direction: row; flex-wrap: wrap; margin-top: 1.5rem; }
+    .exp-grid { grid-template-columns: 1fr; gap: 1px; }
+    .ambience-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .ambience-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-cell:first-child { grid-row: auto; }
+    footer { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .res-form { grid-template-columns: 1fr; }
+    #reservation { padding: 4.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Driveway</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#ambience">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#info">Visit</a></li>
+  </ul>
+  <button class="nav-reserve" onclick="openModal()">Reserve a Table</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <canvas id="particles"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Benin City's Most Exclusive Venue</div>
+    <h1 class="hero-title">
+      Driveway
+      <em>Lifestyle</em>
+    </h1>
+    <p class="hero-sub">Premium Nightlife · Fine Dining · VIP Experiences</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Live Music</span>
+      <span class="hero-tag">Cocktail Bar</span>
+      <span class="hero-tag">Karaoke</span>
+      <span class="hero-tag">Open 24 hrs</span>
+      <span class="hero-tag">VR Gamehouse</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#reservation" class="btn-primary">Reserve Your Table</a>
+      <a href="tel:09130944280" class="btn-ghost">Call Us Now</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual">
+    <div class="about-badge">
+      <span class="about-badge-num">24</span>
+      <span class="about-badge-text">Hours Open</span>
+    </div>
+    <div class="about-card">
+      <div class="about-card-title">Driveway Nightlife</div>
+      <p>The most exclusive nightlife destination in Benin City. Where Benin's finest come to be seen, to celebrate, and to lose themselves in music, luxury, and unforgettable nights.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-title">Domo Dine</div>
+      <p>Our fine dining experience, where premium Nigerian and continental cuisine meets elevated service. Every plate is a statement. Every meal, a memory.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-title">Lifestyle Gamehouse</div>
+      <p>State-of-the-art VR gaming and entertainment — a world-class lounge experience beyond the dance floor.</p>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-label">Our World</div>
+    <h2 class="section-title">Where Benin City<br>comes <em>alive</em></h2>
+    <div class="gold-rule"></div>
+    <p>Driveway Lifestyle is more than a venue — it's an institution. Nestled in the heart of Benin City at the Squarehead Wine Gallery complex, we've redefined what an exclusive night out means in Edo State.</p>
+    <p>From expertly crafted cocktails and a wine list that rivals Lagos' finest, to live performances that keep the floor electric until sunrise — every detail at Driveway is designed to exceed expectation.</p>
+    <p>Mon–Sun, 9am to 5am. Open always. Closed never.</p>
+    <div class="about-stats">
+      <div class="stat">
+        <span class="stat-num">₦20k+</span>
+        <span class="stat-label">From per person</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4.5★</span>
+        <span class="stat-label">Google Rating</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4K+</span>
+        <span class="stat-label">Instagram followers</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Premium venues</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">The Full <em>Experience</em></h2>
+  <div class="gold-rule"></div>
+  <p>Every night at Driveway is crafted for those who refuse to settle. This is Benin City's premier lifestyle destination.</p>
+  <div class="exp-grid">
+    <div class="exp-card">
+      <svg class="exp-icon" viewBox="0 0 42 42" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="21" cy="21" r="18"/>
+        <path d="M14 28 C14 22 21 14 28 14"/>
+        <circle cx="21" cy="21" r="5"/>
+        <path d="M21 16 L21 8 M26 21 L34 21"/>
+      </svg>
+      <h3>Live Music</h3>
+      <p>From Afrobeats to highlife, our stage hosts Benin City's finest performers and touring acts. The energy never stops.</p>
+      <span class="exp-tag">Nightly Performances</span>
+    </div>
+    <div class="exp-card">
+      <svg class="exp-icon" viewBox="0 0 42 42" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round">
+        <path d="M8 34 L8 20 Q8 8 21 8 Q34 8 34 20 L34 34"/>
+        <path d="M14 34 L14 26 Q14 20 21 20 Q28 20 28 26 L28 34"/>
+        <circle cx="21" cy="14" r="3"/>
+      </svg>
+      <h3>Signature Cocktails</h3>
+      <p>Our award-worthy bar team crafts cocktails that honour Nigerian flavour with international technique. Beer, spirits, wine — all superlative.</p>
+      <span class="exp-tag">Great Beer & Wine Too</span>
+    </div>
+    <div class="exp-card">
+      <svg class="exp-icon" viewBox="0 0 42 42" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round">
+        <rect x="8" y="10" width="26" height="20" rx="2"/>
+        <path d="M15 30 L15 34 M27 30 L27 34 M10 34 L32 34"/>
+        <circle cx="21" cy="20" r="4"/>
+        <path d="M21 16 L21 10"/>
+      </svg>
+      <h3>Karaoke Nights</h3>
+      <p>Take the mic. Own the stage. Our karaoke suite is the most electrifying in Benin City — for private groups or full-floor takeovers.</p>
+      <span class="exp-tag">Private Rooms Available</span>
+    </div>
+    <div class="exp-card">
+      <svg class="exp-icon" viewBox="0 0 42 42" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round">
+        <path d="M6 32 Q6 12 21 12 Q36 12 36 32"/>
+        <path d="M11 32 Q11 18 21 18 Q31 18 31 32"/>
+        <path d="M16 32 L16 24 Q16 24 21 24 Q26 24 26 32"/>
+      </svg>
+      <h3>VR Gamehouse</h3>
+      <p>Lifestyle Gamehouse brings virtual reality to Benin City's nightlife scene. An experience unlike anywhere else in Edo State.</p>
+      <span class="exp-tag">State-of-the-Art Tech</span>
+    </div>
+    <div class="exp-card">
+      <svg class="exp-icon" viewBox="0 0 42 42" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round">
+        <path d="M21 8 L24 16 L34 16 L26 22 L29 32 L21 26 L13 32 L16 22 L8 16 L18 16 Z"/>
+      </svg>
+      <h3>VIP Tables</h3>
+      <p>Command the room. Reserve a VIP table with dedicated bottle service, priority access, and a view that puts you at the centre of everything.</p>
+      <span class="exp-tag">Reservations Required</span>
+    </div>
+    <div class="exp-card">
+      <svg class="exp-icon" viewBox="0 0 42 42" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="21" cy="14" r="6"/>
+        <path d="M10 36 Q10 26 21 26 Q32 26 32 36"/>
+        <path d="M31 10 Q35 12 35 16 Q35 20 31 22"/>
+        <path d="M11 10 Q7 12 7 16 Q7 20 11 22"/>
+      </svg>
+      <h3>Fine Dining</h3>
+      <p>Domo Dine offers premium Nigerian and continental cuisine that rivals any restaurant in Nigeria. Great food, great portions — unforgettable meals.</p>
+      <span class="exp-tag">Domo Dine Restaurant</span>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-layout">
+    <div>
+      <div class="section-label">Driveway Selections</div>
+      <h2 class="section-title">Our <em>Menu</em></h2>
+      <div class="gold-rule"></div>
+      <p style="font-size:0.87rem;color:var(--smoke);line-height:1.8;">From premium Nigerian cuisine to international cocktails, every offering at Driveway is curated for the discerning palate.</p>
+      <div class="menu-nav">
+        <button class="menu-tab active" onclick="switchTab('cocktails', this)">Cocktails</button>
+        <button class="menu-tab" onclick="switchTab('food', this)">Food</button>
+        <button class="menu-tab" onclick="switchTab('bottles', this)">Bottles</button>
+        <button class="menu-tab" onclick="switchTab('bites', this)">Small Plates</button>
+      </div>
+    </div>
+    <div>
+      <div class="menu-items active" id="cocktails">
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Lagos Sunset</div>
+            <div class="menu-item-desc">Campari, blood orange, prosecco, hibiscus foam</div>
+          </div>
+          <div class="menu-item-price">₦5,500</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Driveway Signature</div>
+            <div class="menu-item-desc">House-infused rum, zobo reduction, ginger, lime, bitters</div>
+          </div>
+          <div class="menu-item-price">₦6,000</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Benin Gold</div>
+            <div class="menu-item-desc">Premium whisky, honey, lemon, activated charcoal ice</div>
+          </div>
+          <div class="menu-item-price">₦7,500</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">The Edo Mule</div>
+            <div class="menu-item-desc">Vodka, ginger beer, uda spice, fresh mint, lime</div>
+          </div>
+          <div class="menu-item-price">₦5,000</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Passion Royale</div>
+            <div class="menu-item-desc">Champagne, passion fruit, elderflower, gold flakes</div>
+          </div>
+          <div class="menu-item-price">₦9,000</div>
+        </div>
+      </div>
+      <div class="menu-items" id="food">
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Lamb Chops</div>
+            <div class="menu-item-desc">Herb-crusted Benin-style lamb, suya spice rub, garlic aioli, grilled vegetables</div>
+          </div>
+          <div class="menu-item-price">₦14,000</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Domo Jollof Bowl</div>
+            <div class="menu-item-desc">Party jollof rice, fried plantain, coleslaw, grilled chicken or beef</div>
+          </div>
+          <div class="menu-item-price">₦8,500</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Surf & Turf</div>
+            <div class="menu-item-desc">Ribeye steak, tiger prawns, chimichurri, peppercorn cream sauce</div>
+          </div>
+          <div class="menu-item-price">₦22,000</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Pepper Soup</div>
+            <div class="menu-item-desc">Goat meat or catfish pepper soup, native herbs, served piping hot</div>
+          </div>
+          <div class="menu-item-price">₦6,500</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Seafood Platter</div>
+            <div class="menu-item-desc">Grilled lobster, king crab claws, prawns, calamari, dipping sauces</div>
+          </div>
+          <div class="menu-item-price">₦35,000</div>
+        </div>
+      </div>
+      <div class="menu-items" id="bottles">
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Hennessy VS</div>
+            <div class="menu-item-desc">750ml, served with mixers, ice, and branded glassware</div>
+          </div>
+          <div class="menu-item-price">₦45,000</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Ciroc Vodka</div>
+            <div class="menu-item-desc">750ml, choice of flavour, with premium mixers</div>
+          </div>
+          <div class="menu-item-price">₦38,000</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Dom Pérignon</div>
+            <div class="menu-item-desc">Vintage champagne, served with sparkler presentation</div>
+          </div>
+          <div class="menu-item-price">₦120,000</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Glenfiddich 18yr</div>
+            <div class="menu-item-desc">Single malt Scotch whisky, 750ml</div>
+          </div>
+          <div class="menu-item-price">₦65,000</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Whispering Angel Rosé</div>
+            <div class="menu-item-desc">Provence rosé, 750ml, perfectly chilled</div>
+          </div>
+          <div class="menu-item-price">₦28,000</div>
+        </div>
+      </div>
+      <div class="menu-items" id="bites">
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Pork Ribs</div>
+            <div class="menu-item-desc">Slow-cooked BBQ pork ribs, house sauce, coleslaw</div>
+          </div>
+          <div class="menu-item-price">₦9,500</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Spring Rolls (6 pcs)</div>
+            <div class="menu-item-desc">Crispy chicken and vegetable rolls, sweet chilli dip</div>
+          </div>
+          <div class="menu-item-price">₦3,500</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Suya Platter</div>
+            <div class="menu-item-desc">Classic Hausa-style suya, sliced onion, tomato, yaji spice</div>
+          </div>
+          <div class="menu-item-price">₦5,500</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Calamari Rings</div>
+            <div class="menu-item-desc">Golden-fried squid, lemon aioli, pickled chillies</div>
+          </div>
+          <div class="menu-item-price">₦4,500</div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Sliders Trio</div>
+            <div class="menu-item-desc">Beef, chicken, and prawn sliders on brioche, house pickles</div>
+          </div>
+          <div class="menu-item-price">₦6,000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMBIENCE -->
+<section id="ambience">
+  <div class="ambience-header">
+    <div>
+      <div class="section-label">The Space</div>
+      <h2 class="section-title">Designed for the <em>night</em></h2>
+      <div class="gold-rule"></div>
+    </div>
+    <p>From the moment you step through our doors, Driveway envelops you in an atmosphere unlike anywhere else in Benin City. Dim gold light, velvet booths, a dance floor that breathes — every element is deliberate.</p>
+  </div>
+  <div class="ambience-gallery">
+    <div class="gallery-cell">
+      <div class="gallery-inner gallery-placeholder g1">
+        <svg class="g-svg" width="100%" height="100%" viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice">
+          <circle cx="200" cy="260" r="180" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+          <circle cx="200" cy="260" r="120" stroke="#C9A84C" stroke-width="0.3" fill="none"/>
+          <circle cx="200" cy="260" r="60" stroke="#C9A84C" stroke-width="0.3" fill="none"/>
+          <line x1="200" y1="80" x2="200" y2="440" stroke="#C9A84C" stroke-width="0.3"/>
+          <line x1="20" y1="260" x2="380" y2="260" stroke="#C9A84C" stroke-width="0.3"/>
+          <text x="200" y="270" text-anchor="middle" fill="#C9A84C" font-size="18" font-family="Cormorant Garamond" letter-spacing="3">THE FLOOR</text>
+        </svg>
+        <span class="gallery-label">Main Floor</span>
+      </div>
+    </div>
+    <div class="gallery-cell">
+      <div class="gallery-inner gallery-placeholder g2">
+        <svg class="g-svg" width="100%" height="100%" viewBox="0 0 200 200">
+          <rect x="20" y="20" width="160" height="160" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+          <rect x="40" y="40" width="120" height="120" stroke="#C9A84C" stroke-width="0.3" fill="none"/>
+          <text x="100" y="108" text-anchor="middle" fill="#C9A84C" font-size="9" font-family="Cormorant Garamond" letter-spacing="2">VIP LOUNGE</text>
+        </svg>
+        <span class="gallery-label">VIP Lounge</span>
+      </div>
+    </div>
+    <div class="gallery-cell">
+      <div class="gallery-inner gallery-placeholder g3">
+        <svg class="g-svg" width="100%" height="100%" viewBox="0 0 200 200">
+          <path d="M100 20 L180 180 L20 180 Z" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+          <text x="100" y="155" text-anchor="middle" fill="#C9A84C" font-size="9" font-family="Cormorant Garamond" letter-spacing="2">THE BAR</text>
+        </svg>
+        <span class="gallery-label">Cocktail Bar</span>
+      </div>
+    </div>
+    <div class="gallery-cell">
+      <div class="gallery-inner gallery-placeholder g4">
+        <svg class="g-svg" width="100%" height="100%" viewBox="0 0 200 200">
+          <ellipse cx="100" cy="100" rx="80" ry="50" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+          <ellipse cx="100" cy="100" rx="50" ry="30" stroke="#C9A84C" stroke-width="0.3" fill="none"/>
+          <text x="100" y="108" text-anchor="middle" fill="#C9A84C" font-size="9" font-family="Cormorant Garamond" letter-spacing="2">DOMO DINE</text>
+        </svg>
+        <span class="gallery-label">Fine Dining</span>
+      </div>
+    </div>
+    <div class="gallery-cell">
+      <div class="gallery-inner gallery-placeholder g5">
+        <svg class="g-svg" width="100%" height="100%" viewBox="0 0 200 200">
+          <polygon points="100,20 180,80 150,170 50,170 20,80" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+          <text x="100" y="108" text-anchor="middle" fill="#C9A84C" font-size="9" font-family="Cormorant Garamond" letter-spacing="1">GAMEHOUSE</text>
+        </svg>
+        <span class="gallery-label">VR Gamehouse</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-label">What They Say</div>
+  <h2 class="section-title">Guests <em>Speaking</em></h2>
+  <div class="gold-rule"></div>
+  <div class="reviews-track-wrap">
+    <div class="reviews-track" id="reviewsTrack">
+      <!-- Reviews duplicated for infinite scroll -->
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section id="info">
+  <div class="info-block">
+    <div class="section-label">Find Us</div>
+    <h3 class="section-title" style="margin-bottom:1.8rem;">Visit <em>Driveway</em></h3>
+    <ul class="info-list">
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+        4 1st Ugbor Road, Oka, Benin City 300102, Edo State
+      </li>
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Located in: Squarehead Wine Gallery Complex
+      </li>
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Monday – Sunday, 9:00 AM – 5:00 AM
+      </li>
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.64 3.4 2 2 0 013.62 1.22h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        <a href="tel:09130944280" style="color:var(--gold);text-decoration:none;">0913 094 4280</a>
+      </li>
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-width="1.5"/><circle cx="12" cy="10" r="3"/></svg>
+        Free street parking &amp; parking lot available
+      </li>
+    </ul>
+  </div>
+  <div class="info-block">
+    <div class="section-label">What We Offer</div>
+    <h3 class="section-title" style="margin-bottom:1.8rem;">Offerings &amp; <em>Amenities</em></h3>
+    <ul class="info-list">
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm-1-7l6-3-6-3v6z"/></svg>
+        Dine-in, Table Service, Takeaway
+      </li>
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        Credit &amp; Debit Cards, NFC Mobile Payments
+      </li>
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+        Free Wi-Fi throughout the venue
+      </li>
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Accepts Reservations — DM or Call
+      </li>
+      <li>
+        <svg class="info-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Wheelchair-accessible facilities
+      </li>
+    </ul>
+    <div class="info-offerings">
+      <span class="offering-tag">Alcohol</span>
+      <span class="offering-tag">Beer</span>
+      <span class="offering-tag">Wine</span>
+      <span class="offering-tag">Cocktails</span>
+      <span class="offering-tag">Spirits</span>
+      <span class="offering-tag">Food</span>
+      <span class="offering-tag">Dancing</span>
+      <span class="offering-tag">Karaoke</span>
+      <span class="offering-tag">Live Music</span>
+      <span class="offering-tag">VR Games</span>
+      <span class="offering-tag">Groups</span>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation">
+  <div class="res-content">
+    <div class="section-label">Book Your Night</div>
+    <h2 class="section-title">Reserve a <em>Table</em></h2>
+    <div class="gold-rule"></div>
+    <p>Secure your spot at Benin City's most exclusive venue. VIP tables and private bookings available. For immediate reservations, call or DM us on Instagram.</p>
+    <div class="res-form">
+      <input class="res-input" type="text" placeholder="Full Name">
+      <input class="res-input" type="tel" placeholder="Phone Number">
+      <input class="res-input" type="email" placeholder="Email Address" class="full">
+      <input class="res-input" type="date" id="resDate">
+      <input class="res-input" type="time" value="21:00">
+      <select class="res-input">
+        <option>Number of Guests</option>
+        <option>1–2 Guests</option>
+        <option>3–5 Guests</option>
+        <option>6–10 Guests</option>
+        <option>10+ / Private Event</option>
+      </select>
+      <select class="res-input">
+        <option>Table Preference</option>
+        <option>Standard Table</option>
+        <option>VIP Table (Bottle Service)</option>
+        <option>Private Booth</option>
+        <option>Outdoor Terrace</option>
+      </select>
+      <textarea class="res-input full" placeholder="Special Requests or Occasions" rows="3" style="resize:vertical;font-family:'DM Sans',sans-serif;"></textarea>
+      <button class="btn-primary full" onclick="submitReservation()" style="padding:1rem;">Confirm Reservation</button>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.75rem;color:var(--smoke);">Or contact us directly: <a href="tel:09130944280" style="color:var(--gold);">0913 094 4280</a> · <a href="https://instagram.com/driveway_nightlife" target="_blank" style="color:var(--gold);">@driveway_nightlife</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#hero" class="nav-logo">Driveway</a>
+    <p>Benin City's most exclusive nightlife and fine dining destination. Open every day, all night.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Navigate</h4>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#ambience">Gallery</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <ul>
+      <li><a href="tel:09130944280">0913 094 4280</a></li>
+      <li><a href="https://instagram.com/driveway_lifestyle" target="_blank">@driveway_lifestyle</a></li>
+      <li><a href="https://instagram.com/driveway_nightlife" target="_blank">@driveway_nightlife</a></li>
+      <li><a href="http://drivewaylifestyle.com" target="_blank">drivewaylifestyle.com</a></li>
+      <li><a href="#reservation">Reserve a Table</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 Driveway Lifestyle. All rights reserved.</span>
+  <span>4 1st Ugbor Road, Oka, Benin City, Edo</span>
+</div>
+
+<!-- RESERVATION MODAL -->
+<div class="modal-overlay" id="reserveModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modalForm">
+      <h2>Reserve a Table</h2>
+      <p class="modal-sub">Complete your booking — we'll confirm within the hour.</p>
+      <div class="modal-form">
+        <input class="res-input" type="text" placeholder="Full Name">
+        <input class="res-input" type="tel" placeholder="Phone Number">
+        <input class="res-input" type="date">
+        <select class="res-input">
+          <option>Number of Guests</option>
+          <option>1–2</option>
+          <option>3–5</option>
+          <option>6–10</option>
+          <option>10+ / Event</option>
+        </select>
+        <button class="btn-primary" onclick="submitModal()" style="padding:0.9rem;">Confirm Reservation</button>
+      </div>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <svg viewBox="0 0 48 48" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round">
+        <circle cx="24" cy="24" r="22"/>
+        <path d="M14 24l7 7 13-14"/>
+      </svg>
+      <p>Reservation Received</p>
+      <small>We'll contact you at the number provided to confirm your table. See you tonight.</small>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── PARTICLES ──
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let W, H;
+
+function resize() {
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = -Math.random() * 0.5 - 0.1;
+    this.opacity = Math.random() * 0.6 + 0.1;
+    this.life = 0;
+    this.maxLife = Math.random() * 200 + 100;
+    // Gold tones
+    const colors = ['201,168,76', '232,160,32', '212,188,120', '180,140,60'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.life++;
+    if (this.life > this.maxLife || this.y < 0) this.reset();
+  }
+  draw() {
+    const fade = this.life < 30 ? this.life / 30 : this.life > this.maxLife - 30 ? (this.maxLife - this.life) / 30 : 1;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${this.color},${this.opacity * fade})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── MENU TABS ──
+function switchTab(id, btn) {
+  document.querySelectorAll('.menu-items').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.menu-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── REVIEWS ──
+const reviewData = [
+  { name: 'Abraham Lawrence', text: 'The best food in Benin, definitely worth the price. Great portion sizes, amazing appetizers — all around a great experience.', price: '₦20,000+' },
+  { name: 'Sandra Oviasogie', text: 'The very best in Benin City. I really enjoyed myself here. An experience I will not forget.', price: '₦20,000+' },
+  { name: 'Manny Mee', text: 'Perfect atmosphere, loved every moment. This is what a premium night out in Benin should feel like.', price: '₦20,000+' },
+  { name: 'Jennifer Boniface', text: 'Experience a real, cool lifestyle. Everything about this place is a vibe — come and see for yourself.', price: null },
+  { name: 'Donald Ola', text: 'Amazing service from start to finish. The staff, the ambience, the drinks — everything was on point.', price: null },
+  { name: 'Ehisuf Professional', text: 'A stunning lounge — the energy at the weekend is electric. Tipped glasses, scattered cushions, the remnants of unforgettable moments.', price: '₦20,000+' },
+  { name: 'Chinaza Aniesedo', text: 'The food was very lovely and tasty. I shall definitely be coming again soon. Highly recommend.', price: null },
+  { name: 'STEPH OGWO', text: 'Worth every naira. The vibe on the weekend is like nothing else in Benin. Pure luxury.', price: '₦30,000–35,000' },
+];
+
+function buildReviews() {
+  const track = document.getElementById('reviewsTrack');
+  const allReviews = [...reviewData, ...reviewData]; // duplicate for infinite scroll
+  allReviews.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.innerHTML = `
+      ${r.price ? `<span class="review-price">${r.price}</span>` : ''}
+      <div class="review-stars">
+        ${Array(5).fill('<svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>').join('')}
+      </div>
+      <p class="review-text">"${r.text}"</p>
+      <div class="review-author">${r.name}</div>
+    `;
+    track.appendChild(card);
+  });
+}
+buildReviews();
+
+// ── MODAL ──
+function openModal() {
+  document.getElementById('reserveModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('reserveModal').classList.remove('open');
+  document.body.style.overflow = '';
+  // reset
+  document.getElementById('modalForm').style.display = 'block';
+  document.getElementById('modalSuccess').style.display = 'none';
+}
+document.getElementById('reserveModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+function submitModal() {
+  document.getElementById('modalForm').style.display = 'none';
+  document.getElementById('modalSuccess').style.display = 'block';
+}
+function submitReservation() {
+  openModal();
+  setTimeout(() => {
+    document.getElementById('modalForm').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+  }, 400);
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.exp-card, .about-card, .menu-item, .review-card, .stat').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
