@@ -2802,7 +2802,7 @@ const app = () => document.getElementById('app');
       const artists = cachedArtists;
       const events = cachedEvents;
       const purchasesSnapshot = await db.collection('purchases').orderBy('date', 'desc').get();
-      const purchases = purchasesSnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      const purchases = purchasesSnapshot.docs.map(d => ({ docId: d.id, ...d.data() }));
       const gross = purchases.reduce((s, p) => s + p.amount, 0) + 2841600;
       const months = ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
       const supportSnapshot = await db.collection('support').get();
