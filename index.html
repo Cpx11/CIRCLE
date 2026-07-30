@@ -10,19 +10,1398 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <!-- QRCode.js -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  <!-- Fonts & styles -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    /* [ALL STYLES – exactly as in your original code – omitted for brevity, but they are included in the final file] */
-    /* Since the answer has a character limit, I'll include the full CSS in the final code block below. */
+    /* ============================================================
+       ArtistTickets — Complete CSS (unchanged from your original)
+       ============================================================ */
+    :root {
+      --bg: #08070b;
+      --bg-2: #0e0d14;
+      --surface: rgba(255, 255, 255, .045);
+      --surface-2: rgba(255, 255, 255, .075);
+      --stroke: rgba(255, 255, 255, .10);
+      --stroke-strong: rgba(255, 255, 255, .18);
+      --text: #f4f1ea;
+      --muted: #a29d94;
+      --amber: #e8b04b;
+      --amber-2: #f6d896;
+      --rust: #c0562f;
+      --rust-2: #e2764a;
+      --green: #4ec98a;
+      --red: #e2564f;
+      --grad-gold: linear-gradient(135deg, #f6d896 0%, #e8b04b 45%, #c0562f 100%);
+      --grad-dusk: linear-gradient(140deg, #1a1220 0%, #2a1a1c 55%, #100d14 100%);
+      --shadow: 0 24px 60px -24px rgba(0, 0, 0, .85);
+      --shadow-gold: 0 18px 50px -18px rgba(232, 176, 75, .45);
+      --r: 18px;
+      --font: "Manrope", system-ui, -apple-system, Segoe UI, sans-serif;
+      --display: "Bebas Neue", Impact, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+    html {
+      scroll-behavior: smooth
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(70rem 40rem at 12% -10%, rgba(192, 86, 47, .28), transparent 60%),
+        radial-gradient(60rem 40rem at 92% 8%, rgba(232, 176, 75, .18), transparent 60%),
+        radial-gradient(50rem 40rem at 50% 110%, rgba(120, 60, 180, .14), transparent 60%),
+        var(--bg);
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .35;
+      background-image: linear-gradient(rgba(255, 255, 255, .028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .028) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(70% 60% at 50% 20%, #000, transparent 85%);
+    }
+    img {
+      max-width: 100%;
+      display: block
+    }
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+      color: inherit
+    }
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+    ::selection {
+      background: var(--amber);
+      color: #140f08
+    }
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0a10
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a2732;
+      border-radius: 99px;
+      border: 2px solid #0b0a10
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3d3949
+    }
+    .wrap {
+      width: min(1240px, 92vw);
+      margin-inline: auto
+    }
+    .stack {
+      display: flex;
+      flex-direction: column
+    }
+    .row {
+      display: flex;
+      align-items: center
+    }
+    .gap-8 {
+      gap: 8px
+    }
+    .gap-12 {
+      gap: 12px
+    }
+    .gap-16 {
+      gap: 16px
+    }
+    .gap-24 {
+      gap: 24px
+    }
+    .hidden {
+      display: none !important
+    }
+    .muted {
+      color: var(--muted)
+    }
+    .center {
+      text-align: center
+    }
+    h1,
+    h2,
+    h3,
+    .display {
+      font-family: var(--display);
+      letter-spacing: .02em;
+      line-height: .98;
+      font-weight: 400
+    }
+    h1 {
+      font-size: clamp(2.9rem, 7vw, 5.4rem)
+    }
+    h2 {
+      font-size: clamp(2rem, 4.4vw, 3.2rem)
+    }
+    h3 {
+      font-size: clamp(1.3rem, 2.4vw, 1.75rem)
+    }
+    .eyebrow {
+      font-size: .72rem;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 700;
+    }
+    .gold-text {
+      background: var(--grad-gold);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      border-radius: var(--r);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      box-shadow: var(--shadow);
+    }
+    .glass-hover {
+      transition: transform .35s cubic-bezier(.2, .8, .2, 1), border-color .3s, box-shadow .35s
+    }
+    .glass-hover:hover {
+      transform: translateY(-6px);
+      border-color: var(--stroke-strong);
+      box-shadow: var(--shadow-gold)
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke-strong);
+      background: var(--surface-2);
+      cursor: pointer;
+      font-weight: 700;
+      font-size: .92rem;
+      transition: transform .2s, background .25s, border-color .25s, box-shadow .3s;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, .13)
+    }
+    .btn:active {
+      transform: translateY(0)
+    }
+    .btn-primary {
+      background: var(--grad-gold);
+      color: #180f05;
+      border-color: transparent;
+      box-shadow: var(--shadow-gold)
+    }
+    .btn-primary:hover {
+      background: var(--grad-gold);
+      filter: brightness(1.07)
+    }
+    .btn-rust {
+      background: linear-gradient(135deg, var(--rust-2), var(--rust));
+      color: #fff;
+      border-color: transparent
+    }
+    .btn-ghost {
+      background: transparent
+    }
+    .btn-sm {
+      padding: 8px 15px;
+      font-size: .8rem
+    }
+    .btn-block {
+      width: 100%
+    }
+    .btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      transform: none
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      border: 1px solid var(--stroke-strong);
+      background: var(--surface-2);
+    }
+    .badge-gold {
+      background: rgba(232, 176, 75, .16);
+      color: var(--amber-2);
+      border-color: rgba(232, 176, 75, .35)
+    }
+    .badge-green {
+      background: rgba(78, 201, 138, .14);
+      color: var(--green);
+      border-color: rgba(78, 201, 138, .32)
+    }
+    .badge-red {
+      background: rgba(226, 86, 79, .14);
+      color: #f19a95;
+      border-color: rgba(226, 86, 79, .32)
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 14px
+    }
+    .field label {
+      font-size: .76rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700
+    }
+    .input {
+      width: 100%;
+      padding: 13px 15px;
+      border-radius: 13px;
+      border: 1px solid var(--stroke);
+      background: rgba(0, 0, 0, .35);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .input:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 4px rgba(232, 176, 75, .13)
+    }
+    select.input {
+      appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+      background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+      background-size: 6px 6px;
+      background-repeat: no-repeat
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(8, 7, 11, .72);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .nav-in {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      height: 72px
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer
+    }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: var(--grad-gold);
+      display: grid;
+      place-items: center;
+      color: #160e04;
+      font-family: var(--display);
+      font-size: 1.35rem;
+      box-shadow: var(--shadow-gold);
+    }
+    .logo-txt {
+      font-family: var(--display);
+      font-size: 1.5rem;
+      letter-spacing: .04em
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      margin-left: 14px
+    }
+    .nav-links a {
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color .2s, background .2s;
+      cursor: pointer
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: var(--surface-2)
+    }
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+    .burger {
+      display: none;
+      background: none;
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 9px 11px;
+      cursor: pointer
+    }
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--amber);
+      cursor: pointer;
+      background: var(--grad-dusk);
+    }
+    .avatar-fallback {
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: .85rem;
+      color: var(--amber)
+    }
+    .menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 10px);
+      min-width: 230px;
+      padding: 8px;
+      z-index: 90;
+    }
+    .menu button {
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 11px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: .88rem;
+      font-weight: 600;
+      text-align: left
+    }
+    .menu button:hover {
+      background: var(--surface-2)
+    }
+    .menu .sep {
+      height: 1px;
+      background: var(--stroke);
+      margin: 6px 4px
+    }
+    #toasts {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+    .toast {
+      padding: 13px 17px;
+      border-radius: 14px;
+      min-width: 250px;
+      max-width: 340px;
+      font-size: .88rem;
+      font-weight: 600;
+      animation: slideIn .35s cubic-bezier(.2, .9, .25, 1);
+    }
+    .toast.ok {
+      border-left: 3px solid var(--green)
+    }
+    .toast.err {
+      border-left: 3px solid var(--red)
+    }
+    .toast.info {
+      border-left: 3px solid var(--amber)
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(40px)
+      }
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(4, 3, 7, .76);
+      backdrop-filter: blur(9px);
+      animation: fadeIn .25s ease
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0
+      }
+      to {
+        opacity: 1
+      }
+    }
+    .modal {
+      width: min(620px, 100%);
+      max-height: 88vh;
+      overflow: auto;
+      padding: 26px;
+      animation: popIn .38s cubic-bezier(.2, .9, .25, 1);
+      position: relative
+    }
+    .modal.wide {
+      width: min(880px, 100%)
+    }
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(.97)
+      }
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+    .modal-x {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--stroke);
+      background: var(--surface-2);
+      cursor: pointer;
+      font-size: 1rem
+    }
+    .modal-x:hover {
+      background: rgba(255, 255, 255, .14)
+    }
+    .loader-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0;
+      background: var(--grad-gold);
+      z-index: 300;
+      transition: width .3s ease, opacity .4s
+    }
+    .spinner {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, .14);
+      border-top-color: var(--amber);
+      animation: spin .7s linear infinite
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(1turn)
+      }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .12), rgba(255, 255, 255, .05));
+      background-size: 200% 100%;
+      animation: sh 1.2s infinite;
+      border-radius: 12px
+    }
+    @keyframes sh {
+      to {
+        background-position: -200% 0
+      }
+    }
+    .page {
+      animation: pageIn .45s cubic-bezier(.2, .8, .2, 1)
+    }
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px)
+      }
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1)
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none
+    }
+    .art {
+      position: relative;
+      overflow: hidden;
+      background: var(--grad-dusk);
+    }
+    .art::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(45% 60% at 25% 25%, var(--a1, rgba(232, 176, 75, .55)), transparent 65%),
+        radial-gradient(55% 70% at 78% 70%, var(--a2, rgba(192, 86, 47, .6)), transparent 65%);
+      filter: blur(6px)
+    }
+    .art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .5;
+      background-image: repeating-linear-gradient(115deg, rgba(0, 0, 0, .35) 0 2px, transparent 2px 9px);
+      mix-blend-mode: overlay
+    }
+    .art>* {
+      position: relative;
+      z-index: 2
+    }
+    .art-label {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 14px 16px;
+      font-family: var(--display);
+      font-size: 1.5rem;
+      background: linear-gradient(transparent, rgba(4, 3, 6, .9))
+    }
+    .grid {
+      display: grid;
+      gap: 20px
+    }
+    .g3 {
+      grid-template-columns: repeat(3, 1fr)
+    }
+    .g4 {
+      grid-template-columns: repeat(4, 1fr)
+    }
+    .g2 {
+      grid-template-columns: repeat(2, 1fr)
+    }
+    section.blk {
+      padding: 86px 0
+    }
+    .sec-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 34px
+    }
+    .sec-head p {
+      color: var(--muted);
+      max-width: 56ch;
+      margin-top: 8px
+    }
+    .hero {
+      position: relative;
+      padding: 96px 0 70px;
+      overflow: hidden
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 44px;
+      align-items: center
+    }
+    .hero h1 span {
+      display: block
+    }
+    .hero p.lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 52ch;
+      margin: 20px 0 28px
+    }
+    .stat-strip {
+      display: flex;
+      gap: 34px;
+      margin-top: 44px;
+      flex-wrap: wrap
+    }
+    .stat b {
+      font-family: var(--display);
+      font-size: 2.4rem;
+      display: block;
+      line-height: 1
+    }
+    .stat span {
+      font-size: .74rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+    .hero-card {
+      padding: 22px;
+      transform: rotate(1.2deg)
+    }
+    .ticket-stub {
+      border-radius: 16px;
+      padding: 18px;
+      background: linear-gradient(150deg, rgba(232, 176, 75, .16), rgba(192, 86, 47, .12));
+      border: 1px dashed rgba(232, 176, 75, .45);
+      position: relative;
+      overflow: hidden
+    }
+    .ticket-stub+.ticket-stub {
+      margin-top: 12px
+    }
+    .searchbox {
+      position: relative;
+      max-width: 560px
+    }
+    .searchbox .input {
+      padding-left: 44px;
+      height: 56px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .5)
+    }
+    .search-ico {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted)
+    }
+    .suggest {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      z-index: 60;
+      padding: 7px;
+      max-height: 320px;
+      overflow: auto
+    }
+    .suggest .item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 12px;
+      cursor: pointer
+    }
+    .suggest .item:hover,
+    .suggest .item.hl {
+      background: var(--surface-2)
+    }
+    .suggest .thumb {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      flex: none
+    }
+    .banner {
+      height: 300px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 22px
+    }
+    .artist-head {
+      display: flex;
+      gap: 24px;
+      align-items: flex-end;
+      margin-top: -72px;
+      padding: 0 26px;
+      position: relative;
+      z-index: 5
+    }
+    .artist-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 26px;
+      flex: none;
+      border: 3px solid rgba(255, 255, 255, .25);
+      box-shadow: var(--shadow)
+    }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 7px;
+      margin: 26px 0 30px;
+      scrollbar-width: none
+    }
+    .tabs::-webkit-scrollbar {
+      display: none
+    }
+    .tabs button {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: .88rem;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: .25s
+    }
+    .tabs button:hover {
+      color: var(--text)
+    }
+    .tabs button.active {
+      background: var(--grad-gold);
+      color: #180f05
+    }
+    .event {
+      display: grid;
+      grid-template-columns: 150px 1fr auto;
+      gap: 20px;
+      padding: 16px;
+      align-items: center
+    }
+    .event .art {
+      height: 104px;
+      border-radius: 14px
+    }
+    .date-chip {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      flex: none;
+      background: var(--surface-2);
+      border: 1px solid var(--stroke);
+      text-align: center;
+      line-height: 1
+    }
+    .date-chip b {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      display: block
+    }
+    .date-chip span {
+      font-size: .62rem;
+      letter-spacing: .16em;
+      color: var(--amber);
+      text-transform: uppercase
+    }
+    .tier {
+      padding: 26px;
+      position: relative;
+      display: flex;
+      flex-direction: column
+    }
+    .tier.featured {
+      border-color: rgba(232, 176, 75, .5);
+      box-shadow: var(--shadow-gold)
+    }
+    .tier .price {
+      font-family: var(--display);
+      font-size: 3rem;
+      line-height: 1;
+      margin: 14px 0 4px
+    }
+    .tier ul {
+      list-style: none;
+      margin: 18px 0 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1
+    }
+    .tier li {
+      display: flex;
+      gap: 10px;
+      font-size: .9rem;
+      color: #d9d4cb
+    }
+    .tier li::before {
+      content: "✦";
+      color: var(--amber)
+    }
+    .ribbon {
+      position: absolute;
+      top: 16px;
+      right: 16px
+    }
+    .qty {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      overflow: hidden
+    }
+    .qty button {
+      width: 36px;
+      height: 36px;
+      background: var(--surface-2);
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700
+    }
+    .qty button:hover {
+      background: rgba(255, 255, 255, .15)
+    }
+    .qty span {
+      width: 44px;
+      text-align: center;
+      font-weight: 800
+    }
+    .gal {
+      columns: 3;
+      column-gap: 16px
+    }
+    .gal .art {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: transform .35s
+    }
+    .gal .art:hover {
+      transform: scale(1.02)
+    }
+    .quote {
+      padding: 26px;
+      font-size: .98rem
+    }
+    .quote .stars {
+      color: var(--amber);
+      letter-spacing: 2px;
+      margin-bottom: 12px
+    }
+    .dash {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 24px;
+      padding: 26px 0 70px;
+      align-items: start
+    }
+    .side {
+      padding: 14px;
+      position: sticky;
+      top: 92px
+    }
+    .side h4 {
+      font-size: .7rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 12px;
+      font-family: var(--font);
+      font-weight: 800
+    }
+    .side button {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 12px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .89rem;
+      color: var(--muted);
+      text-align: left;
+      transition: .2s
+    }
+    .side button:hover {
+      background: var(--surface-2);
+      color: var(--text)
+    }
+    .side button.active {
+      background: var(--grad-gold);
+      color: #180f05;
+      font-weight: 800
+    }
+    .kpi {
+      padding: 20px
+    }
+    .kpi .v {
+      font-family: var(--display);
+      font-size: 2.4rem;
+      line-height: 1;
+      margin: 6px 0
+    }
+    .kpi .l {
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+    .kpi .d {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--green)
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem
+    }
+    th {
+      text-align: left;
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--stroke);
+      font-weight: 800
+    }
+    td {
+      padding: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, .055)
+    }
+    tbody tr {
+      transition: background .2s
+    }
+    tbody tr:hover {
+      background: var(--surface)
+    }
+    .table-wrap {
+      overflow-x: auto
+    }
+    .chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 190px;
+      padding-top: 12px
+    }
+    .chart .bar {
+      flex: 1;
+      border-radius: 9px 9px 4px 4px;
+      background: var(--grad-gold);
+      position: relative;
+      animation: grow .9s cubic-bezier(.2, .9, .25, 1) both;
+      min-height: 5px;
+      opacity: .9
+    }
+    .chart .bar:hover {
+      filter: brightness(1.15)
+    }
+    .chart .bar span {
+      position: absolute;
+      bottom: -22px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: .66rem;
+      color: var(--muted)
+    }
+    .chart .bar b {
+      position: absolute;
+      top: -20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: .68rem;
+      color: var(--amber-2)
+    }
+    @keyframes grow {
+      from {
+        height: 0
+      }
+    }
+    .donut {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: none
+    }
+    .donut .hole {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: #0c0b11;
+      display: grid;
+      place-items: center;
+      text-align: center
+    }
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      font-size: .84rem
+    }
+    .legend i {
+      width: 11px;
+      height: 11px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-right: 8px
+    }
+    .spark {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 44px
+    }
+    .spark i {
+      flex: 1;
+      background: rgba(232, 176, 75, .5);
+      border-radius: 3px
+    }
+    .qr-card {
+      padding: 22px;
+      border-radius: 20px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .03));
+      border: 1px solid var(--stroke-strong);
+      text-align: center
+    }
+    canvas.qr {
+      background: #fff;
+      border-radius: 14px;
+      padding: 10px;
+      width: 190px;
+      height: 190px
+    }
+    .memcard {
+      border-radius: 22px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(232, 176, 75, .22), rgba(192, 86, 47, .2)), #141019;
+      border: 1px solid rgba(232, 176, 75, .4)
+    }
+    .memcard.silver {
+      background: linear-gradient(135deg, rgba(200, 205, 215, .25), rgba(120, 125, 140, .2)), #141019;
+      border-color: rgba(200, 205, 215, .4)
+    }
+    .memcard.platinum {
+      background: linear-gradient(135deg, rgba(190, 160, 255, .25), rgba(90, 190, 230, .2)), #141019;
+      border-color: rgba(190, 160, 255, .45)
+    }
+    .memcard .photo {
+      width: 66px;
+      height: 66px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, .4);
+      background: var(--grad-dusk)
+    }
+    .paylist {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px
+    }
+    .pay {
+      padding: 14px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(0, 0, 0, .3);
+      cursor: pointer;
+      text-align: center;
+      transition: .22s;
+      font-size: .8rem;
+      font-weight: 700
+    }
+    .pay:hover {
+      border-color: var(--stroke-strong);
+      transform: translateY(-2px)
+    }
+    .pay.sel {
+      border-color: var(--amber);
+      background: rgba(232, 176, 75, .12);
+      box-shadow: 0 0 0 3px rgba(232, 176, 75, .12)
+    }
+    .pay .ic {
+      font-size: 1.35rem;
+      display: block;
+      margin-bottom: 6px
+    }
+    .summary {
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, .32);
+      border: 1px solid var(--stroke)
+    }
+    .summary .line {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      font-size: .88rem;
+      color: var(--muted)
+    }
+    .summary .total {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 11px;
+      margin-top: 8px;
+      border-top: 1px dashed var(--stroke-strong);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text)
+    }
+    .crypto-box {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: .76rem;
+      word-break: break-all;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, .45);
+      border: 1px dashed var(--stroke-strong);
+      color: var(--amber-2)
+    }
+    .scan-frame {
+      height: 260px;
+      border-radius: 20px;
+      border: 1px solid var(--stroke);
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, rgba(232, 176, 75, .08), rgba(0, 0, 0, .5))
+    }
+    .scan-frame .line {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      height: 2px;
+      background: var(--amber);
+      box-shadow: 0 0 18px var(--amber);
+      animation: scan 2.1s ease-in-out infinite
+    }
+    @keyframes scan {
+      0%,
+      100% {
+        top: 12%
+      }
+      50% {
+        top: 86%
+      }
+    }
+    .corner {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border: 3px solid var(--amber)
+    }
+    .c1 {
+      top: 16px;
+      left: 16px;
+      border-right: 0;
+      border-bottom: 0;
+      border-radius: 10px 0 0 0
+    }
+    .c2 {
+      top: 16px;
+      right: 16px;
+      border-left: 0;
+      border-bottom: 0;
+      border-radius: 0 10px 0 0
+    }
+    .c3 {
+      bottom: 16px;
+      left: 16px;
+      border-right: 0;
+      border-top: 0;
+      border-radius: 0 0 0 10px
+    }
+    .c4 {
+      bottom: 16px;
+      right: 16px;
+      border-left: 0;
+      border-top: 0;
+      border-radius: 0 0 10px 0
+    }
+    .verdict {
+      padding: 22px;
+      border-radius: 18px;
+      text-align: center;
+      font-family: var(--display);
+      font-size: 2rem
+    }
+    .v-ok {
+      background: rgba(78, 201, 138, .14);
+      border: 1px solid rgba(78, 201, 138, .4);
+      color: #88e7b6
+    }
+    .v-used {
+      background: rgba(232, 176, 75, .14);
+      border: 1px solid rgba(232, 176, 75, .4);
+      color: var(--amber-2)
+    }
+    .v-bad {
+      background: rgba(226, 86, 79, .14);
+      border: 1px solid rgba(226, 86, 79, .4);
+      color: #f19a95
+    }
+    footer {
+      border-top: 1px solid var(--stroke);
+      padding: 56px 0 34px;
+      margin-top: 40px;
+      background: rgba(0, 0, 0, .3)
+    }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 30px
+    }
+    footer a {
+      display: block;
+      color: var(--muted);
+      font-size: .88rem;
+      padding: 5px 0;
+      transition: color .2s
+    }
+    footer a:hover {
+      color: var(--amber)
+    }
+    .foot-bottom {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--stroke);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: .82rem;
+      color: var(--muted)
+    }
+    .marquee {
+      overflow: hidden;
+      border-block: 1px solid var(--stroke);
+      background: rgba(0, 0, 0, .25);
+      padding: 12px 0
+    }
+    .marquee div {
+      display: flex;
+      gap: 44px;
+      width: max-content;
+      animation: mq 26s linear infinite;
+      font-family: var(--display);
+      font-size: 1.3rem;
+      color: var(--muted)
+    }
+    @keyframes mq {
+      to {
+        transform: translateX(-50%)
+      }
+    }
+    @media(max-width:1024px) {
+      .g4 {
+        grid-template-columns: repeat(2, 1fr)
+      }
+      .hero-grid {
+        grid-template-columns: 1fr
+      }
+      .dash {
+        grid-template-columns: 1fr
+      }
+      .side {
+        position: static;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto
+      }
+      .side h4 {
+        display: none
+      }
+      .side button {
+        width: auto;
+        white-space: nowrap
+      }
+      .gal {
+        columns: 2
+      }
+    }
+    @media(max-width:760px) {
+      .nav-links {
+        display: none
+      }
+      .burger {
+        display: block
+      }
+      .g3,
+      .g4,
+      .g2 {
+        grid-template-columns: 1fr
+      }
+      .foot-grid {
+        grid-template-columns: 1fr 1fr
+      }
+      .event {
+        grid-template-columns: 1fr;
+        gap: 14px
+      }
+      .event .art {
+        height: 150px
+      }
+      .artist-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin-top: -56px
+      }
+      .artist-pic {
+        width: 112px;
+        height: 112px
+      }
+      .banner {
+        height: 210px
+      }
+      .paylist {
+        grid-template-columns: repeat(2, 1fr)
+      }
+      .gal {
+        columns: 1
+      }
+      section.blk {
+        padding: 60px 0
+      }
+      .stat-strip {
+        gap: 22px
+      }
+      .mobile-menu {
+        display: block
+      }
+    }
   </style>
 </head>
 <body>
   <div class="loader-bar" id="loaderBar"></div>
 
-  <!-- NAVBAR (unchanged) -->
+  <!-- ===== NAVBAR ===== -->
   <nav class="nav">
     <div class="wrap nav-in">
       <div class="logo" onclick="go('/')">
@@ -57,7 +1436,7 @@
 
   <script>
     /* ============================================================
-       ArtistTickets — Complete Firebase Integration
+       ArtistTickets — Complete JavaScript with Firebase, QR, Admin
        ============================================================ */
 
     // Firebase config
@@ -73,7 +1452,6 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-    // (Removed enableIndexedDB to avoid warning)
 
     // ---------- Helpers ----------
     const money = n => '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
@@ -146,7 +1524,6 @@
       toast('Pass downloaded as PNG', 'ok');
     }
 
-    // Art helper
     function art(cls, a1, a2, label, style) {
       return `<div class="art ${cls||''}" style="${style||''};--a1:${a1};--a2:${a2}">${label?`<div class="art-label">${esc(label)}</div>`:''}</div>`;
     }
@@ -156,7 +1533,6 @@
       return `<div class="avatar avatar-fallback" style="width:${size}px;height:${size}px">${u?initials(u.name):'?'}</div>`;
     }
 
-    // Modal
     function modal(html, wide) {
       const root = document.getElementById('modalRoot');
       root.innerHTML =
@@ -344,7 +1720,7 @@
         };
         await db.collection('users').doc(user.uid).set(userData);
         pendingPhoto = null;
-        closeModal();  // <-- close registration modal
+        closeModal();
         toast('Welcome ' + name.split(' ')[0] + '!', 'ok');
         go('/dashboard');
       } catch (err) {
@@ -358,8 +1734,63 @@
       go('/');
     }
 
-    // ---------- Data seeding (unchanged from your original, but shortened for space) ----------
-    // (Full seeding code is included in the final file – I'm omitting it here to keep the answer concise)
+    // ---------- Data seeding (full) ----------
+    async function seedFirestore() {
+      const snapshot = await db.collection('artists').limit(1).get();
+      if (!snapshot.empty) return;
+      const artists = [
+        { id: 'russell-dickerson', name: 'Russell Dickerson', tag: 'Yours • Southern Symphony', hometown: 'Union City, Tennessee', genre: 'Country Pop', monthly: 4820000, followers: 1290000, c1: 'rgba(232,176,75,.65)', c2: 'rgba(192,86,47,.65)', bio: "Platinum-selling country hitmaker Russell Dickerson turned a self-released debut into three consecutive No.1 singles. Known for stadium-sized hooks and a live show that runs on pure adrenaline, he has sold out headline runs across North America and shared stages with Thomas Rhett, Lady A and Florida Georgia Line.", socials: { Instagram: '@russelldickerson', X: '@RussellD', TikTok: '@russelldickerson', YouTube: 'Russell Dickerson' }, email: 'team@russelldickerson.com', phone: '+1 (615) 555-0142', gallery: ['Nashville Soundcheck', 'Ryman Night', 'Tour Bus Diaries', 'Encore Confetti', 'Backstage Acoustic', 'Stadium Lights'] },
+        { id: 'riley-green', name: 'Riley Green', tag: "Behind The Bar • Ain't My Last Rodeo", hometown: 'Jacksonville, Alabama', genre: 'Neotraditional Country', monthly: 9310000, followers: 2140000, c1: 'rgba(120,190,140,.5)', c2: 'rgba(192,86,47,.7)', bio: "Riley Green writes country music the old way — front porch first, arena second. An ACM New Male Artist of the Year winner, his catalog of story-driven anthems has crossed a billion streams while his amphitheater tours keep selling out from Alabama to Anaheim.", socials: { Instagram: '@rileyduckman', X: '@RileyGreenMusic', TikTok: '@rileygreenmusic', YouTube: 'Riley Green' }, email: 'management@rileygreenmusic.com', phone: '+1 (256) 555-0198', gallery: ['Amphitheater Sunset', 'Duck Camp Sessions', 'Front Porch Writes', 'Crowd Singalong', 'Steel Guitar Close-Up', 'Tour Truck'] },
+        { id: 'brett-young', name: 'Brett Young', tag: "In Case You Didn't Know • Mercy", hometown: 'Anaheim, California', genre: 'Country Soul', monthly: 6740000, followers: 1680000, c1: 'rgba(120,150,235,.5)', c2: 'rgba(232,120,140,.55)', bio: "A former college pitcher turned multi-platinum balladeer, Brett Young built a career on the kind of songs couples pick for first dances. Five No.1 singles, billions of streams, and a smooth, soulful delivery that has made him a fixture of country radio for a decade.", socials: { Instagram: '@brettyoungmusic', X: '@BrettYoungMusic', TikTok: '@brettyoungmusic', YouTube: 'Brett Young' }, email: 'contact@brettyoungmusic.com', phone: '+1 (714) 555-0176', gallery: ['Caliville Sessions', 'Acoustic Rehearsal', 'Arena Walkout', 'Meet & Greet Line', 'Studio Cut', 'Guitar Wall'] }
+      ];
+      for (const a of artists) {
+        await db.collection('artists').doc(a.id).set(a);
+      }
+      const events = [
+        { id: 'ev-101', artistId: 'russell-dickerson', name: 'Southern Symphony Tour', venue: 'Bridgestone Arena', city: 'Nashville, TN', date: '2026-09-18', time: '8:00 PM', sold: 14210, capacity: 17500, tickets: [{ type: 'General Admission', price: 69 }, { type: 'Lower Bowl', price: 129 }, { type: 'Front Pit', price: 219 }, { type: 'VIP Suite', price: 389 }] },
+        { id: 'ev-102', artistId: 'russell-dickerson', name: 'Yours Acoustic Night', venue: 'Ryman Auditorium', city: 'Nashville, TN', date: '2026-10-04', time: '7:30 PM', sold: 2010, capacity: 2362, tickets: [{ type: 'Balcony', price: 89 }, { type: 'Main Floor', price: 149 }, { type: 'Front Row', price: 279 }] },
+        { id: 'ev-103', artistId: 'riley-green', name: "Ain't My Last Rodeo Tour", venue: 'Ascend Amphitheater', city: 'Nashville, TN', date: '2026-08-22', time: '7:00 PM', sold: 6410, capacity: 6800, tickets: [{ type: 'Lawn', price: 59 }, { type: 'Reserved', price: 119 }, { type: 'Pit', price: 199 }, { type: 'Rodeo VIP', price: 349 }] },
+        { id: 'ev-104', artistId: 'riley-green', name: 'Duck Camp Days Festival', venue: 'Oak Mountain Amphitheatre', city: 'Pelham, AL', date: '2026-09-06', time: '6:00 PM', sold: 9120, capacity: 10500, tickets: [{ type: 'Festival Pass', price: 79 }, { type: 'Gold Circle', price: 169 }, { type: 'Camp VIP', price: 329 }] },
+        { id: 'ev-105', artistId: 'brett-young', name: 'Caliville Tour', venue: 'Honda Center', city: 'Anaheim, CA', date: '2026-11-14', time: '8:00 PM', sold: 11840, capacity: 16000, tickets: [{ type: 'Upper Level', price: 65 }, { type: 'Floor', price: 139 }, { type: 'Pit', price: 229 }, { type: 'Platinum Box', price: 419 }] },
+        { id: 'ev-106', artistId: 'brett-young', name: 'Mercy Anniversary Show', venue: 'The Bowery Ballroom', city: 'New York, NY', date: '2026-12-02', time: '9:00 PM', sold: 520, capacity: 575, tickets: [{ type: 'Standing', price: 95 }, { type: 'Mezzanine', price: 165 }] }
+      ];
+      for (const e of events) {
+        await db.collection('events').doc(e.id).set(e);
+      }
+      const memberships = [
+        { tier: 'Silver Fan', price: 29, cycle: 'year', cls: 'silver', perks: ['Digital membership card', '48-hour presale access', 'Members-only newsletter', '10% merch discount', 'Birthday video message'] },
+        { tier: 'Gold Fan', price: 79, cycle: 'year', cls: '', featured: true, perks: ['Everything in Silver', '7-day presale window', 'Exclusive unreleased demos', 'Priority meet & greet waitlist', '20% merch discount', 'Quarterly livestream'] },
+        { tier: 'Platinum Fan', price: 179, cycle: 'year', cls: 'platinum', perks: ['Everything in Gold', 'Guaranteed presale seats', 'Soundcheck invitations', 'Signed annual vinyl', 'VIP upgrade opportunities', 'Direct fan-line messaging'] }
+      ];
+      for (const m of memberships) {
+        await db.collection('memberships').doc(m.tier).set(m);
+      }
+      const meetGreets = [
+        { id: 'mg-1', name: 'Standard Meet & Greet', price: 149, slots: 40, perks: ['Group photo with the artist', 'Signed tour poster', 'Early venue entry', 'Commemorative laminate'] },
+        { id: 'mg-2', name: 'VIP Meet & Greet', price: 349, slots: 18, perks: ['Private photo with the artist', 'Signed setlist + poster', 'Soundcheck viewing', 'VIP lounge access', 'Exclusive merch bundle'] },
+        { id: 'mg-3', name: 'Ultimate Experience Package', price: 749, slots: 6, perks: ['One-on-one 10 minute session', 'Play a song request at soundcheck', 'Signed guitar', 'Front-row seat upgrade', 'Backstage tour', 'Full merch collection'] }
+      ];
+      for (const mg of meetGreets) {
+        await db.collection('meetGreets').doc(mg.id).set(mg);
+      }
+      const parking = [
+        { id: 'pk-1', name: 'Standard Parking', price: 25, perks: ['General lot access', 'Gates open 2 hours early', 'QR scan entry'], spots: 1200 },
+        { id: 'pk-2', name: 'VIP Parking', price: 65, perks: ['Front-of-house lot', 'Dedicated attendant', 'Express exit lane', 'Tailgate zone access'], spots: 180 }
+      ];
+      for (const p of parking) {
+        await db.collection('parking').doc(p.id).set(p);
+      }
+      const testimonials = [
+        { name: 'Kaylee M.', text: 'Scanned straight in with the QR pass, no printing, no line. The VIP meet & greet with Riley was worth every dollar.', tier: 'Platinum Fan' },
+        { name: 'Jorge R.', text: 'I have used every ticketing site out there. ArtistTickets is the only one where my membership, parking and tickets live in one place.', tier: 'Gold Fan' },
+        { name: 'Whitney T.', text: 'Bought Brett Young floor seats in under a minute and the digital membership card got me into soundcheck.', tier: 'Gold Fan' }
+      ];
+      for (const t of testimonials) {
+        await db.collection('testimonials').add(t);
+      }
+      console.log('Firestore seeded with demo data.');
+    }
+    seedFirestore();
 
     // ---------- Data fetchers ----------
     async function getArtists() {
@@ -500,7 +1931,7 @@
           date: new Date().toISOString().slice(0, 10),
           used: false,
           amount: total,
-          status: 'pending'  // <-- new
+          status: 'pending'
         };
         try {
           await db.collection('purchases').add(rec);
@@ -521,7 +1952,6 @@
             read: false,
             purchaseId: rec.id
           });
-          // Show pending message
           modal(`<div class="center">
             <div style="width:66px;height:66px;border-radius:50%;margin:4px auto 12px;display:grid;place-items:center;background:rgba(232,176,75,.16);border:1px solid rgba(232,176,75,.45);font-size:1.9rem">⏳</div>
             <h3 style="font-size:2.2rem">Payment submitted</h3>
@@ -1701,10 +3131,6 @@
       toast('Ticket ' + id + ' updated', 'ok');
       setDash('Support Tickets');
     }
-
-    // ---------- Seed Firestore (if empty) ----------
-    // (Full seeding code – I'll include it in the final file)
-    // For the final answer, I'll include the complete seeding function.
   </script>
 </body>
 </html>
