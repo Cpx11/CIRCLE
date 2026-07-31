@@ -1769,16 +1769,16 @@ const app = () => document.getElementById('app');
         await db.collection('memberships').doc(m.tier).set(m);
       }
       const meetGreets = [
-        { id: 'mg-1', name: 'Standard Meet & Greet', price: 1,750, slots: 40, perks: ['Group photo with the artist', 'Signed tour poster', 'Early venue entry', 'Commemorative laminate'] },
-        { id: 'mg-2', name: 'VIP Meet & Greet', price: 3,640, slots: 18, perks: ['Private photo with the artist', 'Signed setlist + poster', 'Soundcheck viewing', 'VIP lounge access', 'Exclusive merch bundle'] },
-        { id: 'mg-3', name: 'Ultimate Experience Package', price: 5,000, slots: 6, perks: ['One-on-one 10 minute session', 'Play a song request at soundcheck', 'Signed guitar', 'Front-row seat upgrade', 'Backstage tour', 'Full merch collection'] }
+        { id: 'mg-1', name: 'Standard Meet & Greet', price: 1750, slots: 40, perks: ['Group photo with the artist', 'Signed tour poster', 'Early venue entry', 'Commemorative laminate'] },
+        { id: 'mg-2', name: 'VIP Meet & Greet', price: 3640, slots: 18, perks: ['Private photo with the artist', 'Signed setlist + poster', 'Soundcheck viewing', 'VIP lounge access', 'Exclusive merch bundle'] },
+        { id: 'mg-3', name: 'Ultimate Experience Package', price: 5000, slots: 6, perks: ['One-on-one 10 minute session', 'Play a song request at soundcheck', 'Signed guitar', 'Front-row seat upgrade', 'Backstage tour', 'Full merch collection'] }
       ];
       for (const mg of meetGreets) {
         await db.collection('meetGreets').doc(mg.id).set(mg);
       }
       const parking = [
-        { id: 'pk-1', name: 'Standard Parking', price: 25, perks: ['General lot access', 'Gates open 2 hours early', 'QR scan entry'], spots: 1200 },
-        { id: 'pk-2', name: 'VIP Parking', price: 65, perks: ['Front-of-house lot', 'Dedicated attendant', 'Express exit lane', 'Tailgate zone access'], spots: 180 }
+        { id: 'pk-1', name: 'Standard Parking', price: 99, perks: ['General lot access', 'Gates open 2 hours early', 'QR scan entry'], spots: 1200 },
+        { id: 'pk-2', name: 'VIP Parking', price: 140, perks: ['Front-of-house lot', 'Dedicated attendant', 'Express exit lane', 'Tailgate zone access'], spots: 180 }
       ];
       for (const p of parking) {
         await db.collection('parking').doc(p.id).set(p);
