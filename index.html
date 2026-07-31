@@ -1761,17 +1761,17 @@ const app = () => document.getElementById('app');
         await db.collection('events').doc(e.id).set(e);
       }
       const memberships = [
-        { tier: 'Silver Fan', price: 29, cycle: 'year', cls: 'silver', perks: ['Digital membership card', '48-hour presale access', 'Members-only newsletter', '10% merch discount', 'Birthday video message'] },
-        { tier: 'Gold Fan', price: 79, cycle: 'year', cls: '', featured: true, perks: ['Everything in Silver', '7-day presale window', 'Exclusive unreleased demos', 'Priority meet & greet waitlist', '20% merch discount', 'Quarterly livestream'] },
-        { tier: 'Platinum Fan', price: 179, cycle: 'year', cls: 'platinum', perks: ['Everything in Gold', 'Guaranteed presale seats', 'Soundcheck invitations', 'Signed annual vinyl', 'VIP upgrade opportunities', 'Direct fan-line messaging'] }
+        { tier: 'Silver Fan', price: 1400, cycle: 'year', cls: 'silver', perks: ['Digital membership card', '48-hour presale access', 'Members-only newsletter', '10% merch discount', 'Birthday video message'] },
+        { tier: 'Gold Fan', price: 2999, cycle: 'year', cls: '', featured: true, perks: ['Everything in Silver', '7-day presale window', 'Exclusive unreleased demos', 'Priority meet & greet waitlist', '20% merch discount', 'Quarterly livestream'] },
+        { tier: 'Platinum Fan', price: 4999, cycle: 'year', cls: 'platinum', perks: ['Everything in Gold', 'Guaranteed presale seats', 'Soundcheck invitations', 'Signed annual vinyl', 'VIP upgrade opportunities', 'Direct fan-line messaging'] }
       ];
       for (const m of memberships) {
         await db.collection('memberships').doc(m.tier).set(m);
       }
       const meetGreets = [
-        { id: 'mg-1', name: 'Standard Meet & Greet', price: 149, slots: 40, perks: ['Group photo with the artist', 'Signed tour poster', 'Early venue entry', 'Commemorative laminate'] },
-        { id: 'mg-2', name: 'VIP Meet & Greet', price: 349, slots: 18, perks: ['Private photo with the artist', 'Signed setlist + poster', 'Soundcheck viewing', 'VIP lounge access', 'Exclusive merch bundle'] },
-        { id: 'mg-3', name: 'Ultimate Experience Package', price: 749, slots: 6, perks: ['One-on-one 10 minute session', 'Play a song request at soundcheck', 'Signed guitar', 'Front-row seat upgrade', 'Backstage tour', 'Full merch collection'] }
+        { id: 'mg-1', name: 'Standard Meet & Greet', price: 1,750, slots: 40, perks: ['Group photo with the artist', 'Signed tour poster', 'Early venue entry', 'Commemorative laminate'] },
+        { id: 'mg-2', name: 'VIP Meet & Greet', price: 3,640, slots: 18, perks: ['Private photo with the artist', 'Signed setlist + poster', 'Soundcheck viewing', 'VIP lounge access', 'Exclusive merch bundle'] },
+        { id: 'mg-3', name: 'Ultimate Experience Package', price: 5,000, slots: 6, perks: ['One-on-one 10 minute session', 'Play a song request at soundcheck', 'Signed guitar', 'Front-row seat upgrade', 'Backstage tour', 'Full merch collection'] }
       ];
       for (const mg of meetGreets) {
         await db.collection('meetGreets').doc(mg.id).set(mg);
