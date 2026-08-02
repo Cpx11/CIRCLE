@@ -2880,18 +2880,25 @@ const app = () => document.getElementById('app');
     </div>`;
 }
         case 'Pending Approvals': {
-          const pending = purchases.filter(p => p.status !== 'confirmed');
-          return head('Pending Approvals', 'Review and confirm purchases before QR codes are generated.') +
-            (pending.length ? `<div class="glass" style="padding:8px"><div class="table-wrap"><table>
-              <thead><tr><th>Order</th><th>User</th><th>Item</th><th>Amount</th><th>Method</th><th>Date</th><th></th></tr></thead>
-              <tbody>${pending.map(p=>{const usr=users.find(x=>x.id===p.userId);
-                return `<tr><td style="font-family:ui-monospace,monospace;font-size:.76rem">${esc(p.id)}</td>
-                <td>${esc(usr?usr.name:'—')}</td><td>${esc(p.label)}</td><td><b>${money(p.amount)}</b></td>
-                <td>${esc(p.method)}</td><td>${fmtDate(p.date)}</td>
-                <td><button class="btn btn-sm btn-primary" onclick="confirmPurchase('${p.docId}')">Confirm</button></td></tr>`}).join('')}
-              </tbody></table></div></div>`
-              : `<div class="glass center" style="padding:52px"><h3>All clear</h3><p class="muted">No pending purchases waiting for confirmation.</p></div>`);
-        }
+  const pending = purchases.filter(p => p.status !== 'confirmed');
+  return head('Pending Approvals', 'Review and confirm purchases before QR codes are generated.') +
+    (pending.length ? `<div class="glass" style="padding:8px"><div class="table-wrap"><table>
+      <thead><tr><th>Order</th><th>User</th><th>Item</th><th>Amount</th><th>Method</th><th>Date</th><th></th></tr></thead>
+      <tbody>${pending.map(p => {
+        const usr = users.find(x => x.id === p.userId);
+        return `<tr>
+          <td style="font-family:ui-monospace,monospace;font-size:.76rem">${esc(p.id)}</td>
+          <td>${esc(usr ? usr.name : '—')}</td>
+          <td>${esc(p.label)}</td>
+          <td><b>${money(p.amount)}</b></td>
+          <td>${esc(p.method)}</td>
+          <td>${fmtDate(p.date)}</td>
+          <td><button class="btn btn-sm btn-primary" onclick="confirmPurchase('${p.docId}')">Confirm</button></td>
+        </tr>`;
+      }).join('')}
+      </tbody></table></div></div>`
+      : `<div class="glass center" style="padding:52px"><h3>All clear</h3><p class="muted">No pending purchases waiting for confirmation.</p></div>`);
+}
 
         case 'Users':
           return head('Users', 'All accounts, roles and lifetime value.',
