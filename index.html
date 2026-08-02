@@ -2809,24 +2809,76 @@ const app = () => document.getElementById('app');
       const support = supportSnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
 
       switch (dashTab) {
-        case 'Overview':
-          return head('Platform overview', 'Marketplace health across all artists and venues.') +
-            `<div class="grid g4" style="margin-bottom:20px">
-            ${kpi('Gross volume', money(gross),'+22.1% YoY')}${kpi('Active users', compact(19400+users.length),'+1,204 this month')}
-            ${kpi('Artists', artists.length,'3 onboarding')}${kpi('Events live', events.length,'12 in review')}</div>
-          <div class="grid g2" style="align-items:start">
-            <div class="glass" style="padding:22px"><span class="eyebrow">Platform GMV</span>${barChart([...Array(12)].map((_,i)=>Math.round(3000+Math.random()*2000)),months)}</div>
-            <div class="glass" style="padding:22px"><span class="eyebrow">Payment methods</span><div style="margin-top:16px">
-              ${donut([{k:'Credit Card',v:61,c:'#e8b04b'},{k:'PayPal',v:14,c:'#c0562f'},{k:'BTC',v:9,c:'#7a5cc4'},{k:'ETH',v:7,c:'#4ec98a'},{k:'SOL/USDT',v:9,c:'#5aa8d6'}])}
-            </div></div></div>
-          <div class="glass" style="padding:22px;margin-top:20px"><span class="eyebrow">Latest transactions</span>
-            <div class="table-wrap" style="margin-top:12px"><table><thead><tr><th>Order</th><th>User</th><th>Item</th><th>Method</th><th>Amount</th><th>Status</th></tr></thead><tbody>
-            ${purchases.slice(0,6).map(p=>{const usr=users.find(x=>x.id===p.userId);
-              return `<tr><td style="font-family:ui-monospace,monospace;font-size:.76rem">${esc(p.id)}</td><td>${esc(usr?usr.name:'—')}</td>
-              <td>${esc(p.label)}</td><td>${esc(p.method)}</td><td><b>${money(p.amount)}</b></td>
-              <td><span class="badge ${p.status==='confirmed'?'badge-green':'badge-gold'}">${p.status||'pending'}</span></td></tr>`}).join('')}
-            </tbody></table></div></div>`;
-
+        case 'Overview': {
+  // Calculate real KPIs from Firestore data
+  const totalRevenue = purchases.reduce((sum, p) => sum + (p.amount || 0), 0);
+  const totalOrders = purchases.length;
+  const totalUsers = users.length;
+  const totalArtists = artists.length;
+  const totalEvents = events.length;
+  
+  // Monthly revenue from actual purchase dates
+  const months = ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+  const monthlyRevenue = months.map((_, i) => {
+    const month = new Date();
+    month.setMonth(month.getMonth() - (11 - i));
+    const monthStr = month.toISOString().slice(0, 7); // "2026-07"
+    return purchases
+      .filter(p => p.date && p.date.startsWith(monthStr))
+      .reduce((s, p) => s + (p.amount || 0), 0);
+  });
+  
+  // Payment method breakdown (real)
+  const methodMap = {};
+  purchases.forEach(p => { 
+    methodMap[p.method] = (methodMap[p.method] || 0) + (p.amount || 0); 
+  });
+  const methodTotals = Object.entries(methodMap).map(([k, v]) => ({ k, v }));
+  
+  // Color palette for payment methods
+  const colors = ['#e8b04b', '#c0562f', '#7a5cc4', '#4ec98a', '#5aa8d6', '#f19a95'];
+  
+  return head('Platform overview', 'Real‑time marketplace health across all artists and venues.') +
+    `<div class="grid g4" style="margin-bottom:20px">
+      ${kpi('Gross volume', money(totalRevenue), totalOrders + ' orders')}
+      ${kpi('Active users', compact(totalUsers), 'registered')}
+      ${kpi('Artists', totalArtists, 'active')}
+      ${kpi('Events live', totalEvents, 'on sale')}
+    </div>
+    <div class="grid g2" style="align-items:start">
+      <div class="glass" style="padding:22px">
+        <span class="eyebrow">Monthly revenue</span>
+        ${barChart(monthlyRevenue.map(v => v/1000), months)}
+      </div>
+      <div class="glass" style="padding:22px">
+        <span class="eyebrow">Payment methods</span>
+        <div style="margin-top:16px">
+          ${methodTotals.length ? donut(methodTotals.map((m, i) => ({k: m.k, v: m.v, c: colors[i % colors.length]}))) : donut([{k:'No data',v:1,c:'#555'}])}
+        </div>
+      </div>
+    </div>
+    <div class="glass" style="padding:22px;margin-top:20px">
+      <span class="eyebrow">Latest transactions</span>
+      <div class="table-wrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Order</th><th>User</th><th>Item</th><th>Method</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+          ${purchases.slice(0,10).reverse().map(p => {
+            const usr = users.find(x => x.id === p.userId);
+            return `<tr>
+              <td style="font-family:ui-monospace,monospace;font-size:.76rem">${esc(p.id)}</td>
+              <td>${esc(usr ? usr.name : '—')}</td>
+              <td>${esc(p.label)}</td>
+              <td>${esc(p.method)}</td>
+              <td><b>${money(p.amount)}</b></td>
+              <td><span class="badge ${p.status === 'confirmed' ? 'badge-green' : 'badge-gold'}">${p.status || 'pending'}</span></td>
+            </tr>`;
+          }).join('') || '<tr><td colspan="6" class="muted">No transactions yet</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
         case 'Pending Approvals': {
           const pending = purchases.filter(p => p.status !== 'confirmed');
           return head('Pending Approvals', 'Review and confirm purchases before QR codes are generated.') +
