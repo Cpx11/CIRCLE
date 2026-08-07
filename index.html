@@ -1908,7 +1908,6 @@
       const sym = { 'Bitcoin (BTC)': 'BTC', 'Ethereum (ETH)': 'ETH', 'Solana (SOL)': 'SOL', 'USDT': 'USDT' } [payMethod];
       return `<div class="eyebrow" style="margin-bottom:10px">${esc(payMethod)} payment</div>
         <div class="summary">
-          <div class="line"><span>Network rate</span><span>${money(rate)} / ${sym}</span></div>
           <div class="total"><span>Send exactly</span><span>${amt} ${sym}</span></div>
           <div style="margin:12px 0 8px" class="muted" style="font-size:.76rem">Deposit address</div>
           <div class="crypto-box">${esc(WALLETS[payMethod])}</div>
