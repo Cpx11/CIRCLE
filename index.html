@@ -1562,7 +1562,7 @@
     let currentUserData = null;
     let currentRole = 'customer';
     let CART = null,
-      payMethod = 'Ethereum (ETH)';
+      payMethod = 'Bitcoin (BTC)';
     let artistTab = 'home',
       dashTab = null;
     let currentArtistId = null;
@@ -1854,11 +1854,13 @@
 
     // ---------- Payment & Checkout ----------
     const PAYMENTS = [
+      { k: 'Bitcoin (BTC)', ic: '₿' },
       { k: 'Ethereum (ETH)', ic: 'Ξ' },
       { k: 'Solana (SOL)', ic: '◎' },
       { k: 'USDT', ic: '₮' }
     ];
     const WALLETS = {
+       'Bitcoin (BTC)': 'bc1qat7k9x2vpm4d0lrf8sn3ce6qhu5wz0ytg9r4ax', 
       'Ethereum (ETH)': '0x9Fd3aB21c7E4b085Da16cB0f77e2Aa41c53D9b0E',
       'Solana (SOL)': '7xKQtRmVb2ZLdNqAcPo9jFhU4sWy1EgTn6MvXz3BpQrD',
       'USDT': 'TQ8mNv4RcZaWpKdE2Yh7Lu6Xs9BgFj3VtA (TRC-20)'
@@ -1901,9 +1903,9 @@
       renderCheckout() }
 
     function payPanel(total) {
-      const rate = { 'Ethereum (ETH)': 3420, 'Solana (SOL)': 182, 'USDT': 1 } [payMethod];
+      const rate = { 'Bitcoin (BTC)': 96500, 'Ethereum (ETH)': 3420, 'Solana (SOL)': 182, 'USDT': 1 } [payMethod];
       const amt = (total / rate).toFixed(payMethod === 'USDT' ? 2 : 6);
-      const sym = { 'Ethereum (ETH)': 'ETH', 'Solana (SOL)': 'SOL', 'USDT': 'USDT' } [payMethod];
+      const sym = { 'Bitcoin (BTC)': 'BTC', 'Ethereum (ETH)': 'ETH', 'Solana (SOL)': 'SOL', 'USDT': 'USDT' } [payMethod];
       return `<div class="eyebrow" style="margin-bottom:10px">${esc(payMethod)} payment</div>
         <div class="summary">
           <div class="line"><span>Network rate</span><span>${money(rate)} / ${sym}</span></div>
