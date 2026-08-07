@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* ============================================================
-       ArtistTickets — Complete CSS (unchanged from your original)
+       ArtistTickets — Complete CSS
        ============================================================ */
     :root {
       --bg: #08070b;
@@ -1436,7 +1436,7 @@
 
   <script>
     /* ============================================================
-       ArtistTickets — Complete JavaScript with Firebase, QR, Admin
+       ArtistTickets — Complete JavaScript (Full Version)
        ============================================================ */
 
     // Firebase config
@@ -1485,9 +1485,9 @@
         setTimeout(() => { b.style.opacity = '0';
           b.style.width = '0' }, 320) }, 280);
     }
-    
 
-const app = () => document.getElementById('app');
+    // ---- CRITICAL: app function ----
+    const app = () => document.getElementById('app');
 
     // ---- QR with QRCode.js ----
     function qrHTML(data) {
@@ -1497,14 +1497,16 @@ const app = () => document.getElementById('app');
     function paintQRs(scope) {
       (scope || document).querySelectorAll('canvas[data-qr]').forEach(c => {
         const text = c.dataset.qr;
-        new QRCode(c, {
-          text: text,
-          width: c.width,
-          height: c.height,
-          colorDark: "#0a0810",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H
-        });
+        if (text) {
+          new QRCode(c, {
+            text: text,
+            width: c.width,
+            height: c.height,
+            colorDark: "#0a0810",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+          });
+        }
       });
     }
 
@@ -1527,7 +1529,12 @@ const app = () => document.getElementById('app');
       toast('Pass downloaded as PNG', 'ok');
     }
 
-    function art(cls, a1, a2, label, style) {
+    function art(cls, a1, a2, label, style, photo) {
+      if (photo) {
+        return `<div class="art ${cls||''}" style="${style||''};background-image:url('${photo}');background-size:cover;background-position:center;position:relative;">
+          ${label ? `<div class="art-label">${esc(label)}</div>` : ''}
+        </div>`;
+      }
       return `<div class="art ${cls||''}" style="${style||''};--a1:${a1};--a2:${a2}">${label?`<div class="art-label">${esc(label)}</div>`:''}</div>`;
     }
 
@@ -1555,7 +1562,7 @@ const app = () => document.getElementById('app');
     let currentUserData = null;
     let currentRole = 'customer';
     let CART = null,
-      payMethod = 'Credit Card';
+      payMethod = 'Ethereum (ETH)';
     let artistTab = 'home',
       dashTab = null;
     let currentArtistId = null;
@@ -1737,15 +1744,16 @@ const app = () => document.getElementById('app');
       go('/');
     }
 
-    // ---------- Data seeding (full) ----------
+    // ---------- Data seeding (FIXED - added comma and https) ----------
     async function seedFirestore() {
       const snapshot = await db.collection('artists').limit(1).get();
       if (!snapshot.empty) return;
       const artists = [
         { id: 'russell-dickerson', name: 'Russell Dickerson', tag: 'Yours • Southern Symphony', hometown: 'Union City, Tennessee', genre: 'Country Pop', monthly: 4820000, followers: 1290000, c1: 'rgba(232,176,75,.65)', c2: 'rgba(192,86,47,.65)', bio: "Platinum-selling country hitmaker Russell Dickerson turned a self-released debut into three consecutive No.1 singles. Known for stadium-sized hooks and a live show that runs on pure adrenaline, he has sold out headline runs across North America and shared stages with Thomas Rhett, Lady A and Florida Georgia Line.", socials: { Instagram: '@russelldickerson', X: '@RussellD', TikTok: '@russelldickerson', YouTube: 'Russell Dickerson' }, email: 'team@russelldickerson.com', phone: '+1 (615) 555-0142', gallery: ['Nashville Soundcheck', 'Ryman Night', 'Tour Bus Diaries', 'Encore Confetti', 'Backstage Acoustic', 'Stadium Lights'] },
         { id: 'riley-green', name: 'Riley Green', tag: "Behind The Bar • Ain't My Last Rodeo", hometown: 'Jacksonville, Alabama', genre: 'Neotraditional Country', monthly: 9310000, followers: 2140000, c1: 'rgba(120,190,140,.5)', c2: 'rgba(192,86,47,.7)', bio: "Riley Green writes country music the old way — front porch first, arena second. An ACM New Male Artist of the Year winner, his catalog of story-driven anthems has crossed a billion streams while his amphitheater tours keep selling out from Alabama to Anaheim.", socials: { Instagram: '@rileyduckman', X: '@RileyGreenMusic', TikTok: '@rileygreenmusic', YouTube: 'Riley Green' }, email: 'management@rileygreenmusic.com', phone: '+1 (256) 555-0198', gallery: ['Amphitheater Sunset', 'Duck Camp Sessions', 'Front Porch Writes', 'Crowd Singalong', 'Steel Guitar Close-Up', 'Tour Truck'] },
-        { id: 'brett-young', name: 'Brett Young', tag: "In Case You Didn't Know • Mercy", hometown: 'Anaheim, California', genre: 'Country Soul', monthly: 6740000, followers: 1680000, c1: 'rgba(120,150,235,.5)', c2: 'rgba(232,120,140,.55)', bio: "A former college pitcher turned multi-platinum balladeer, Brett Young built a career on the kind of songs couples pick for first dances. Five No.1 singles, billions of streams, and a smooth, soulful delivery that has made him a fixture of country radio for a decade.", socials: { Instagram: '@brettyoungmusic', X: '@BrettYoungMusic', TikTok: '@brettyoungmusic', YouTube: 'Brett Young' }, email: 'contact@brettyoungmusic.com', phone: '+1 (714) 555-0176', gallery: ['Caliville Sessions', 'Acoustic Rehearsal', 'Arena Walkout', 'Meet & Greet Line', 'Studio Cut', 'Guitar Wall'] }
-        { id: 'manuel-carrasco', name: 'Manuel Carrasco',tag: 'Heart Warmer',hometown: 'Madrid, Spain',genre: 'Country Pop',monthly: 5000000,followers: 1200000,c1: 'rgba(232,176,75,.65)',c2: 'rgba(192,86,47,.65)',bio: "Artist biography goes here. Tell the story of the artist, their career, and their music.",socials: {Instagram: '@manuelcarrasco',X: '@manuelcarrasco',TikTok: '@manuelcarrasco',YouTube: 'Manuel Carrasco'},email: 'team@manuelcarrasco.com',phone: '+1 (615) 555-0000',gallery: ['Concert Photo 1','Studio Session','Backstage','Fan Meet','Performance','Album Cover'],photo:'source.unsplash.com/800x600/?singer' }
+        { id: 'brett-young', name: 'Brett Young', tag: "In Case You Didn't Know • Mercy", hometown: 'Anaheim, California', genre: 'Country Soul', monthly: 6740000, followers: 1680000, c1: 'rgba(120,150,235,.5)', c2: 'rgba(232,120,140,.55)', bio: "A former college pitcher turned multi-platinum balladeer, Brett Young built a career on the kind of songs couples pick for first dances. Five No.1 singles, billions of streams, and a smooth, soulful delivery that has made him a fixture of country radio for a decade.", socials: { Instagram: '@brettyoungmusic', X: '@BrettYoungMusic', TikTok: '@brettyoungmusic', YouTube: 'Brett Young' }, email: 'contact@brettyoungmusic.com', phone: '+1 (714) 555-0176', gallery: ['Caliville Sessions', 'Acoustic Rehearsal', 'Arena Walkout', 'Meet & Greet Line', 'Studio Cut', 'Guitar Wall'] },
+        { id: 'manuel-carrasco', name: 'Manuel Carrasco', tag: 'Heart Warmer', hometown: 'Madrid, Spain', genre: 'Country Pop', monthly: 5000000, followers: 1200000, c1: 'rgba(232,176,75,.65)', c2: 'rgba(192,86,47,.65)', bio: "Artist biography goes here. Tell the story of the artist, their career, and their music.", socials: { Instagram: '@manuelcarrasco', X: '@manuelcarrasco', TikTok: '@manuelcarrasco', YouTube: 'Manuel Carrasco' }, email: 'team@manuelcarrasco.com', phone: '+1 (615) 555-0000', gallery: ['Concert Photo 1', 'Studio Session', 'Backstage', 'Fan Meet', 'Performance', 'Album Cover'], photo: 'https://source.unsplash.com/800x600/?singer' }
+      ];
       for (const a of artists) {
         await db.collection('artists').doc(a.id).set(a);
       }
@@ -1845,13 +1853,13 @@ const app = () => document.getElementById('app');
       return snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
     }
 
-    // ---------- Payment & Checkout (with pending status) ----------
+    // ---------- Payment & Checkout ----------
     const PAYMENTS = [
-       //{ k: 'Credit Card', ic: '💳' }, { k: 'PayPal', ic: '🅿️' }, { k: 'Bitcoin (BTC)', ic: '₿' },
-      { k: 'Ethereum (ETH)', ic: 'Ξ' }, { k: 'Solana (SOL)', ic: '◎' }, { k: 'USDT', ic: '₮' }
+      { k: 'Ethereum (ETH)', ic: 'Ξ' },
+      { k: 'Solana (SOL)', ic: '◎' },
+      { k: 'USDT', ic: '₮' }
     ];
     const WALLETS = {
-      'Bitcoin (BTC)': 'bc1qat7k9x2vpm4d0lrf8sn3ce6qhu5wz0ytg9r4ax',
       'Ethereum (ETH)': '0x9Fd3aB21c7E4b085Da16cB0f77e2Aa41c53D9b0E',
       'Solana (SOL)': '7xKQtRmVb2ZLdNqAcPo9jFhU4sWy1EgTn6MvXz3BpQrD',
       'USDT': 'TQ8mNv4RcZaWpKdE2Yh7Lu6Xs9BgFj3VtA (TRC-20)'
@@ -1861,7 +1869,7 @@ const app = () => document.getElementById('app');
       if (!currentUser) { toast('Please sign in to continue', 'err');
         openSignIn(); return; }
       CART = cart;
-      payMethod = 'Credit Card';
+      payMethod = PAYMENTS[0].k;
       renderCheckout();
     }
 
@@ -1882,6 +1890,7 @@ const app = () => document.getElementById('app');
           <div class="paylist">
             ${PAYMENTS.map(p=>`<div class="pay ${p.k===payMethod?'sel':''}" onclick="setPay('${p.k}')"><span class="ic">${p.ic}</span>${p.k}</div>`).join('')}
           </div>
+          <p class="muted" style="font-size:.72rem;margin-top:10px;text-align:center">💳 Credit Card &amp; PayPal coming soon</p>
         </div>
         <div id="payPanel">${payPanel(total)}</div>
       </div>
@@ -1893,22 +1902,9 @@ const app = () => document.getElementById('app');
       renderCheckout() }
 
     function payPanel(total) {
-      if (payMethod === 'Credit Card') return `
-        <div class="eyebrow" style="margin-bottom:10px">Card details</div>
-        <div class="field"><label>Card number</label><input class="input" value="4242 4242 4242 4242"></div>
-        <div class="row gap-12"><div class="field" style="flex:1"><label>Expiry</label><input class="input" value="09/29"></div>
-        <div class="field" style="flex:1"><label>CVC</label><input class="input" value="123"></div></div>
-        <div class="field"><label>Name on card</label><input class="input" value="${esc(currentUserData?currentUserData.name:'')}"></div>`;
-      if (payMethod === 'PayPal') return `
-        <div class="eyebrow" style="margin-bottom:10px">PayPal</div>
-        <div class="summary center" style="padding:26px">
-          <div style="font-size:2.4rem">🅿️</div>
-          <p style="margin:10px 0 4px;font-weight:700">Redirect to PayPal</p>
-          <p class="muted" style="font-size:.84rem">You will approve ${money(total)} in a secure PayPal window, then return here automatically.</p>
-        </div>`;
-      const rate = { 'Bitcoin (BTC)': 96500, 'Ethereum (ETH)': 3420, 'Solana (SOL)': 182, 'USDT': 1 } [payMethod];
+      const rate = { 'Ethereum (ETH)': 3420, 'Solana (SOL)': 182, 'USDT': 1 } [payMethod];
       const amt = (total / rate).toFixed(payMethod === 'USDT' ? 2 : 6);
-      const sym = { 'Bitcoin (BTC)': 'BTC', 'Ethereum (ETH)': 'ETH', 'Solana (SOL)': 'SOL', 'USDT': 'USDT' } [payMethod];
+      const sym = { 'Ethereum (ETH)': 'ETH', 'Solana (SOL)': 'SOL', 'USDT': 'USDT' } [payMethod];
       return `<div class="eyebrow" style="margin-bottom:10px">${esc(payMethod)} payment</div>
         <div class="summary">
           <div class="line"><span>Network rate</span><span>${money(rate)} / ${sym}</span></div>
@@ -1974,8 +1970,12 @@ const app = () => document.getElementById('app');
     async function confirmPurchase(purchaseId) {
       try {
         const docRef = db.collection('purchases').doc(purchaseId);
-        await docRef.update({ status: 'confirmed' });
         const doc = await docRef.get();
+        if (!doc.exists) {
+          toast('Purchase document not found', 'err');
+          return;
+        }
+        await docRef.update({ status: 'confirmed' });
         const data = doc.data();
         await db.collection('notifications').add({
           userId: data.userId,
@@ -2069,7 +2069,7 @@ const app = () => document.getElementById('app');
           <div class="grid g3">
             ${artists.map(a=>`
               <div class="glass glass-hover reveal" style="overflow:hidden;cursor:pointer" onclick="go('/artist/${a.id}')">
-                ${art('', a.c1, a.c2, '', 'height:190px')}
+                ${art('', a.c1, a.c2, '', 'height:190px', a.photo)}
                 <div style="padding:20px">
                   <div class="row" style="justify-content:space-between"><h3>${esc(a.name)}</h3><span class="badge">${esc(a.genre)}</span></div>
                   <p class="muted" style="font-size:.86rem;margin:8px 0 14px">${esc(a.tag)}</p>
@@ -2154,7 +2154,7 @@ const app = () => document.getElementById('app');
       const from = Math.min(...e.tickets.map(t => t.price));
       const pct = Math.round(e.sold / e.capacity * 100);
       return `<div class="glass glass-hover event reveal">
-        ${art('', a? a.c1:'', a? a.c2:'', '', 'height:104px;border-radius:14px')}
+        ${art('', a? a.c1:'', a? a.c2:'', '', 'height:104px;border-radius:14px', a?.photo)}
         <div style="min-width:0">
           <div class="row gap-8" style="flex-wrap:wrap"><b style="font-size:1.05rem">${esc(e.name)}</b>
           ${pct>92?'<span class="badge badge-red">Almost sold out</span>':pct>75?'<span class="badge badge-gold">Selling fast</span>':'<span class="badge badge-green">Available</span>'}</div>
@@ -2180,7 +2180,7 @@ const app = () => document.getElementById('app');
         </div>
         <div class="grid g3">${cachedArtists.map(a=>`
           <div class="glass glass-hover" style="overflow:hidden;cursor:pointer" onclick="go('/artist/${a.id}')">
-            ${art('',a.c1,a.c2,'', 'height:210px')}
+            ${art('',a.c1,a.c2,'', 'height:210px', a.photo)}
             <div style="padding:20px">
               <h3>${esc(a.name)}</h3>
               <p class="muted" style="font-size:.86rem;margin:6px 0 12px">${esc(a.hometown)} · ${esc(a.genre)}</p>
@@ -2271,9 +2271,9 @@ const app = () => document.getElementById('app');
         ['contact', 'Contact Team']
       ];
       return `<div class="page"><div class="wrap">
-        <div class="banner">${art('',a.c1,a.c2,'', 'position:absolute;inset:0')}</div>
+        <div class="banner">${art('',a.c1,a.c2,'', 'position:absolute;inset:0', a.photo)}</div>
         <div class="artist-head">
-          ${art('artist-pic',a.c2,a.c1,'', '')}
+          ${art('artist-pic',a.c2,a.c1,'', '', a.photo)}
           <div style="flex:1;min-width:0;padding-bottom:8px">
             <span class="badge badge-gold">✓ Verified artist</span>
             <h1 style="font-size:clamp(2.3rem,5vw,3.6rem);margin:8px 0 4px">${esc(a.name)}</h1>
@@ -2341,7 +2341,7 @@ const app = () => document.getElementById('app');
         <p class="muted" style="margin-bottom:20px">Face value pricing · instant QR delivery · photo-verified entry</p>
         <div class="grid g2">${evs.map(e=>`
           <div class="glass glass-hover" style="overflow:hidden">
-            ${art('',a.c1,a.c2,e.name,'height:170px')}
+            ${art('',a.c1,a.c2,e.name,'height:170px', a.photo)}
             <div style="padding:20px">
               <div class="row" style="justify-content:space-between;gap:10px">
                 <div><b>${esc(e.venue)}</b><div class="muted" style="font-size:.84rem">${esc(e.city)}</div></div>
@@ -2382,7 +2382,7 @@ const app = () => document.getElementById('app');
           </div>`).join('')}</div>`;
       if (artistTab === 'gallery') return `<h3 style="margin-bottom:6px">Gallery</h3>
         <p class="muted" style="margin-bottom:22px">Tour photography from the road, the studio and the stage.</p>
-        <div class="gal">${a.gallery.map((g,i)=>art('',i%2?a.c1:a.c2,i%2?a.c2:a.c1,g,`height:${[220,300,260,340,240,280][i%6]}px`)).join('')}</div>`;
+        <div class="gal">${a.gallery.map((g,i)=>art('',i%2?a.c1:a.c2,i%2?a.c2:a.c1,g,`height:${[220,300,260,340,240,280][i%6]}px`, a.photo)).join('')}</div>`;
       return `<div class="grid g2">
         <div class="glass" style="padding:26px">
           <span class="eyebrow">Contact team</span><h3 style="margin:8px 0 14px">Reach ${esc(a.name)}'s management</h3>
@@ -2463,7 +2463,7 @@ const app = () => document.getElementById('app');
       const total = t.price * ticketState.qty;
       modal(`<div class="eyebrow">${esc(a? a.name:'')}</div>
         <h3 style="margin:8px 0 14px">${esc(e.name)}</h3>
-        ${art('',a? a.c1:'',a? a.c2:'',e.venue+' · '+e.city,'height:150px;border-radius:16px;margin-bottom:16px')}
+        ${art('',a? a.c1:'',a? a.c2:'',e.venue+' · '+e.city,'height:150px;border-radius:16px;margin-bottom:16px', a?.photo)}
         <div class="row gap-16" style="flex-wrap:wrap;margin-bottom:16px">
           <div class="date-chip"><b>${dayOf(e.date)}</b><span>${monOf(e.date)}</span></div>
           <div><b>${fmtDate(e.date)}</b><div class="muted" style="font-size:.84rem">Doors ${esc(e.time)} · ${esc(e.venue)}</div></div>
@@ -2525,7 +2525,7 @@ const app = () => document.getElementById('app');
       let sugIndex = -1;
       box.classList.remove('hidden');
       box.innerHTML = list.map((a, i) => `<div class="item" data-i="${i}" onclick="go('/artist/${a.id}')">
-        ${art('thumb',a.c1,a.c2,'','')}
+        ${art('thumb',a.c1,a.c2,'','', a.photo)}
         <div><b style="font-size:.92rem">${esc(a.name)}</b><div class="muted" style="font-size:.78rem">${esc(a.genre)} · ${getEventsOfArtist(a.id).length} shows</div></div>
         <span class="badge" style="margin-left:auto">Open →</span></div>`).join('');
     }
@@ -2778,13 +2778,13 @@ const app = () => document.getElementById('app');
     }
 
     function barChart(data, labels) {
-      const max = Math.max(...data);
+      const max = Math.max(...data, 1);
       return `<div class="chart">${data.map((d,i)=>`<div class="bar" style="height:${Math.round(d/max*100)}%;animation-delay:${i*45}ms">
         <b>${compact(d*1000)}</b><span>${labels[i]}</span></div>`).join('')}</div><div style="height:22px"></div>`;
     }
 
     function donut(parts) {
-      const total = parts.reduce((s, p) => s + p.v, 0);
+      const total = parts.reduce((s, p) => s + p.v, 0) || 1;
       let acc = 0;
       const stops = parts.map(p => { const a = acc / total * 360,
           b = (acc + p.v) / total * 360;
@@ -2795,7 +2795,7 @@ const app = () => document.getElementById('app');
         <div class="legend">${parts.map(p=>`<div><i style="background:${p.c}"></i>${esc(p.k)} — <b>${compact(p.v)}</b></div>`).join('')}</div></div>`;
     }
 
-    // ---------- Admin dashboard (with Pending Approvals) ----------
+    // ---------- Admin dashboard ----------
     async function adminDash() {
       const usersSnapshot = await db.collection('users').get();
       const users = usersSnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -2803,103 +2803,95 @@ const app = () => document.getElementById('app');
       const events = cachedEvents;
       const purchasesSnapshot = await db.collection('purchases').orderBy('date', 'desc').get();
       const purchases = purchasesSnapshot.docs.map(d => ({ docId: d.id, ...d.data() }));
-      const gross = purchases.reduce((s, p) => s + p.amount, 0) + 2841600;
       const months = ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
       const supportSnapshot = await db.collection('support').get();
       const support = supportSnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
 
       switch (dashTab) {
         case 'Overview': {
-  // Calculate real KPIs from Firestore data
-  const totalRevenue = purchases.reduce((sum, p) => sum + (p.amount || 0), 0);
-  const totalOrders = purchases.length;
-  const totalUsers = users.length;
-  const totalArtists = artists.length;
-  const totalEvents = events.length;
-  
-  // Monthly revenue from actual purchase dates
-  const months = ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-  const monthlyRevenue = months.map((_, i) => {
-    const month = new Date();
-    month.setMonth(month.getMonth() - (11 - i));
-    const monthStr = month.toISOString().slice(0, 7); // "2026-07"
-    return purchases
-      .filter(p => p.date && p.date.startsWith(monthStr))
-      .reduce((s, p) => s + (p.amount || 0), 0);
-  });
-  
-  // Payment method breakdown (real)
-  const methodMap = {};
-  purchases.forEach(p => { 
-    methodMap[p.method] = (methodMap[p.method] || 0) + (p.amount || 0); 
-  });
-  const methodTotals = Object.entries(methodMap).map(([k, v]) => ({ k, v }));
-  
-  // Color palette for payment methods
-  const colors = ['#e8b04b', '#c0562f', '#7a5cc4', '#4ec98a', '#5aa8d6', '#f19a95'];
-  
-  return head('Platform overview', 'Real‑time marketplace health across all artists and venues.') +
-    `<div class="grid g4" style="margin-bottom:20px">
-      ${kpi('Gross volume', money(totalRevenue), totalOrders + ' orders')}
-      ${kpi('Active users', compact(totalUsers), 'registered')}
-      ${kpi('Artists', totalArtists, 'active')}
-      ${kpi('Events live', totalEvents, 'on sale')}
-    </div>
-    <div class="grid g2" style="align-items:start">
-      <div class="glass" style="padding:22px">
-        <span class="eyebrow">Monthly revenue</span>
-        ${barChart(monthlyRevenue.map(v => v/1000), months)}
-      </div>
-      <div class="glass" style="padding:22px">
-        <span class="eyebrow">Payment methods</span>
-        <div style="margin-top:16px">
-          ${methodTotals.length ? donut(methodTotals.map((m, i) => ({k: m.k, v: m.v, c: colors[i % colors.length]}))) : donut([{k:'No data',v:1,c:'#555'}])}
-        </div>
-      </div>
-    </div>
-    <div class="glass" style="padding:22px;margin-top:20px">
-      <span class="eyebrow">Latest transactions</span>
-      <div class="table-wrap" style="margin-top:12px">
-        <table>
-          <thead><tr><th>Order</th><th>User</th><th>Item</th><th>Method</th><th>Amount</th><th>Status</th></tr></thead>
-          <tbody>
-          ${purchases.slice(0,10).reverse().map(p => {
-            const usr = users.find(x => x.id === p.userId);
-            return `<tr>
-              <td style="font-family:ui-monospace,monospace;font-size:.76rem">${esc(p.id)}</td>
-              <td>${esc(usr ? usr.name : '—')}</td>
-              <td>${esc(p.label)}</td>
-              <td>${esc(p.method)}</td>
-              <td><b>${money(p.amount)}</b></td>
-              <td><span class="badge ${p.status === 'confirmed' ? 'badge-green' : 'badge-gold'}">${p.status || 'pending'}</span></td>
-            </tr>`;
-          }).join('') || '<tr><td colspan="6" class="muted">No transactions yet</td></tr>'}
-          </tbody>
-        </table>
-      </div>
-    </div>`;
-}
+          const totalRevenue = purchases.reduce((sum, p) => sum + (p.amount || 0), 0);
+          const totalOrders = purchases.length;
+          const totalUsers = users.length;
+          const totalArtists = artists.length;
+          const totalEvents = events.length;
+          
+          const monthlyRevenue = months.map((_, i) => {
+            const month = new Date();
+            month.setMonth(month.getMonth() - (11 - i));
+            const monthStr = month.toISOString().slice(0, 7);
+            return purchases
+              .filter(p => p.date && p.date.startsWith(monthStr))
+              .reduce((s, p) => s + (p.amount || 0), 0);
+          });
+          
+          const methodMap = {};
+          purchases.forEach(p => { 
+            methodMap[p.method] = (methodMap[p.method] || 0) + (p.amount || 0); 
+          });
+          const methodTotals = Object.entries(methodMap).map(([k, v]) => ({ k, v }));
+          const colors = ['#e8b04b', '#c0562f', '#7a5cc4', '#4ec98a', '#5aa8d6', '#f19a95'];
+          
+          return head('Platform overview', 'Real‑time marketplace health across all artists and venues.') +
+            `<div class="grid g4" style="margin-bottom:20px">
+              ${kpi('Gross volume', money(totalRevenue), totalOrders + ' orders')}
+              ${kpi('Active users', compact(totalUsers), 'registered')}
+              ${kpi('Artists', totalArtists, 'active')}
+              ${kpi('Events live', totalEvents, 'on sale')}
+            </div>
+            <div class="grid g2" style="align-items:start">
+              <div class="glass" style="padding:22px">
+                <span class="eyebrow">Monthly revenue</span>
+                ${barChart(monthlyRevenue.map(v => v/1000), months)}
+              </div>
+              <div class="glass" style="padding:22px">
+                <span class="eyebrow">Payment methods</span>
+                <div style="margin-top:16px">
+                  ${methodTotals.length ? donut(methodTotals.map((m, i) => ({k: m.k, v: m.v, c: colors[i % colors.length]}))) : donut([{k:'No data',v:1,c:'#555'}])}
+                </div>
+              </div>
+            </div>
+            <div class="glass" style="padding:22px;margin-top:20px">
+              <span class="eyebrow">Latest transactions</span>
+              <div class="table-wrap" style="margin-top:12px">
+                <table>
+                  <thead><tr><th>Order</th><th>User</th><th>Item</th><th>Method</th><th>Amount</th><th>Status</th></tr></thead>
+                  <tbody>
+                  ${purchases.slice(0,10).reverse().map(p => {
+                    const usr = users.find(x => x.id === p.userId);
+                    return `<tr>
+                      <td style="font-family:ui-monospace,monospace;font-size:.76rem">${esc(p.id)}</td>
+                      <td>${esc(usr ? usr.name : '—')}</td>
+                      <td>${esc(p.label)}</td>
+                      <td>${esc(p.method)}</td>
+                      <td><b>${money(p.amount)}</b></td>
+                      <td><span class="badge ${p.status === 'confirmed' ? 'badge-green' : 'badge-gold'}">${p.status || 'pending'}</span></td>
+                    </tr>`;
+                  }).join('') || '<tr><td colspan="6" class="muted">No transactions yet</td></tr>'}
+                  </tbody>
+                </table>
+              </div>
+            </div>`;
+        }
         case 'Pending Approvals': {
-  const pending = purchases.filter(p => p.status !== 'confirmed');
-  return head('Pending Approvals', 'Review and confirm purchases before QR codes are generated.') +
-    (pending.length ? `<div class="glass" style="padding:8px"><div class="table-wrap"><table>
-      <thead><tr><th>Order</th><th>User</th><th>Item</th><th>Amount</th><th>Method</th><th>Date</th><th></th></tr></thead>
-      <tbody>${pending.map(p => {
-        const usr = users.find(x => x.id === p.userId);
-        return `<tr>
-          <td style="font-family:ui-monospace,monospace;font-size:.76rem">${esc(p.id)}</td>
-          <td>${esc(usr ? usr.name : '—')}</td>
-          <td>${esc(p.label)}</td>
-          <td><b>${money(p.amount)}</b></td>
-          <td>${esc(p.method)}</td>
-          <td>${fmtDate(p.date)}</td>
-          <td><button class="btn btn-sm btn-primary" onclick="confirmPurchase('${p.docId}')">Confirm</button></td>
-        </tr>`;
-      }).join('')}
-      </tbody></table></div></div>`
-      : `<div class="glass center" style="padding:52px"><h3>All clear</h3><p class="muted">No pending purchases waiting for confirmation.</p></div>`);
-}
-
+          const pending = purchases.filter(p => p.status !== 'confirmed');
+          return head('Pending Approvals', 'Review and confirm purchases before QR codes are generated.') +
+            (pending.length ? `<div class="glass" style="padding:8px"><div class="table-wrap"><table>
+              <thead><tr><th>Order</th><th>User</th><th>Item</th><th>Amount</th><th>Method</th><th>Date</th><th></th></tr></thead>
+              <tbody>${pending.map(p => {
+                const usr = users.find(x => x.id === p.userId);
+                return `<tr>
+                  <td style="font-family:ui-monospace,monospace;font-size:.76rem">${esc(p.id)}</td>
+                  <td>${esc(usr ? usr.name : '—')}</td>
+                  <td>${esc(p.label)}</td>
+                  <td><b>${money(p.amount)}</b></td>
+                  <td>${esc(p.method)}</td>
+                  <td>${fmtDate(p.date)}</td>
+                  <td><button class="btn btn-sm btn-primary" onclick="confirmPurchase('${p.docId}')">Confirm</button></td>
+                </tr>`;
+              }).join('')}
+              </tbody></table></div></div>`
+              : `<div class="glass center" style="padding:52px"><h3>All clear</h3><p class="muted">No pending purchases waiting for confirmation.</p></div>`);
+        }
         case 'Users':
           return head('Users', 'All accounts, roles and lifetime value.',
               `<button class="btn btn-sm btn-primary" onclick="openRegister()">+ Add user</button>`) +
@@ -2915,7 +2907,7 @@ const app = () => document.getElementById('app');
         case 'Artists':
           return head('Artists', 'Roster management and payout status.') +
             `<div class="grid g3">${artists.map(a=>`<div class="glass glass-hover" style="overflow:hidden">
-              ${art('',a.c1,a.c2,a.name,'height:130px')}
+              ${art('',a.c1,a.c2,a.name,'height:130px', a.photo)}
               <div style="padding:18px"><div class="row" style="justify-content:space-between"><b>${esc(a.genre)}</b><span class="badge badge-green">Verified</span></div>
               <div class="muted" style="font-size:.82rem;margin:8px 0 12px">${getEventsOfArtist(a.id).length} events · ${compact(a.followers)} fans</div>
               <div class="row gap-8"><button class="btn btn-sm" style="flex:1" onclick="go('/artist/${a.id}')">View</button>
@@ -3112,7 +3104,8 @@ const app = () => document.getElementById('app');
 
     // ---------- Bootstrap ----------
     window.addEventListener('hashchange', route);
-    
+    // Call route immediately to render the initial page
+    route();
 
     // Expose functions globally
     window.go = go;
