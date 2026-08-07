@@ -1903,7 +1903,7 @@
       renderCheckout() }
 
     function payPanel(total) {
-      const rate = { 'Bitcoin (BTC)': 96500, 'Ethereum (ETH)': 3420, 'Solana (SOL)': 182, 'USDT': 1 } [payMethod];
+      const rate = { 'Bitcoin (BTC)': 64000, 'Ethereum (ETH)': 3420, 'Solana (SOL)': 182, 'USDT': 1 } [payMethod];
       const amt = (total / rate).toFixed(payMethod === 'USDT' ? 2 : 6);
       const sym = { 'Bitcoin (BTC)': 'BTC', 'Ethereum (ETH)': 'ETH', 'Solana (SOL)': 'SOL', 'USDT': 'USDT' } [payMethod];
       return `<div class="eyebrow" style="margin-bottom:10px">${esc(payMethod)} payment</div>
